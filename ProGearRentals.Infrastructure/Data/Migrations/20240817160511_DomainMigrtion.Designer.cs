@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProGearRentals.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using ProGearRentals.Infrastructure.Data;
 namespace ProGearRentals.Infrastructure.Migrations
 {
     [DbContext(typeof(ProGearRentalsDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240817160511_DomainMigrtion")]
+    partial class DomainMigrtion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -248,7 +250,7 @@ namespace ProGearRentals.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Agents", (string)null);
+                    b.ToTable("Agents");
 
                     b.HasComment("Equipment Agent");
                 });
@@ -270,7 +272,7 @@ namespace ProGearRentals.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
 
                     b.HasComment("Equipment category");
                 });
@@ -324,7 +326,7 @@ namespace ProGearRentals.Infrastructure.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Equipments", (string)null);
+                    b.ToTable("Equipments");
 
                     b.HasComment("Equipment to rent");
                 });
@@ -361,7 +363,7 @@ namespace ProGearRentals.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reservations", (string)null);
+                    b.ToTable("Reservations");
 
                     b.HasComment("Equipment reservation record");
                 });
@@ -400,7 +402,7 @@ namespace ProGearRentals.Infrastructure.Migrations
 
                     b.HasIndex("ReviewerId");
 
-                    b.ToTable("Reviews", (string)null);
+                    b.ToTable("Reviews");
 
                     b.HasComment("Equipment Review");
                 });

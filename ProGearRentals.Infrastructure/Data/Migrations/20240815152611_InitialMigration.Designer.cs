@@ -11,7 +11,7 @@ using ProGearRentals.Infrastructure.Data;
 
 namespace ProGearRentals.Infrastructure.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(ProGearRentalsDbContext))]
     [Migration("20240815152611_InitialMigration")]
     partial class InitialMigration
     {

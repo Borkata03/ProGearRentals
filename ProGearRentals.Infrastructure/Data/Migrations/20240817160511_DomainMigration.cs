@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProGearRentals.Infrastructure.Migrations
 {
-    public partial class DomainMigrtion : Migration
+    public partial class DomainMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

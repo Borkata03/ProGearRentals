@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ProGearRentals.Infrastructure.Data.Models;
+using ProGearRentals.Infrastructure.Data.SeedDb;
 using System.Reflection.Emit;
 
 namespace ProGearRentals.Infrastructure.Data
@@ -12,7 +13,20 @@ namespace ProGearRentals.Infrastructure.Data
         {
         }
 
-       
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.ApplyConfiguration(new UserConfiguration());
+            builder.ApplyConfiguration(new AgentConfiguration());
+            builder.ApplyConfiguration(new CategoryConfiguration());
+            builder.ApplyConfiguration(new ReviewConfiguration());
+            builder.ApplyConfiguration(new ReservationConfiguration());
+            builder.ApplyConfiguration(new EquipmentConfiguration());
+
+            base.OnModelCreating(builder);
+        }
+
+
+
 
         public DbSet<Equipment> Equipments { get; set; } = null!;
 
@@ -25,43 +39,7 @@ namespace ProGearRentals.Infrastructure.Data
         public DbSet<Agent> Agents { get; set; } = null!;
 
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-
-            
-            modelBuilder.Entity<Review>()
-                .HasKey(r => r.Id); 
-
-            modelBuilder.Entity<Review>()
-                .HasOne(r => r.Equipment)
-                .WithMany(e => e.Reviews)
-                .HasForeignKey(r => r.EquipmentId)
-                .OnDelete(DeleteBehavior.Restrict); 
-
-            modelBuilder.Entity<Review>()
-                .HasOne(r => r.Reviewer)
-                .WithMany()
-                .HasForeignKey(r => r.ReviewerId)
-                .OnDelete(DeleteBehavior.Restrict); 
-
-        
-            modelBuilder.Entity<Reservation>()
-                .HasKey(r => r.Id); 
-
-            modelBuilder.Entity<Reservation>()
-                .HasOne(r => r.Equipment)
-                .WithMany(e => e.Reservations) 
-                .HasForeignKey(r => r.EquipmentId)
-                .OnDelete(DeleteBehavior.Restrict); 
-
-            modelBuilder.Entity<Reservation>()
-                .HasOne(r => r.User)
-                .WithMany() 
-                .HasForeignKey(r => r.UserId)
-                .OnDelete(DeleteBehavior.Restrict); 
-        }
-
+       
 
     }
 }

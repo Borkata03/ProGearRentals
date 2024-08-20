@@ -13,7 +13,7 @@ namespace ProGearRentals.Infrastructure.Migrations
 {
     [DbContext(typeof(ProGearRentalsDbContext))]
     [Migration("20240817160511_DomainMigrtion")]
-    partial class DomainMigrtion
+    partial class DomainMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

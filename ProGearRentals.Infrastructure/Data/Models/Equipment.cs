@@ -43,7 +43,6 @@ namespace ProGearRentals.Infrastructure.Data.Models
         [Comment("Agent Identifier")] 
         public int AgentId { get; set; }
 
-        [Required]
         [Comment("User id of the renterer")]
         public string? RenterId { get; set; }
 

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using ProGearRentals.Data;
+using ProGearRentals.Infrastructure.Data;
 
 
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProGearRentals.Core.Models.Home;
 using ProGearRentals.Models;
 using System.Diagnostics;
 
@@ -16,7 +17,9 @@ namespace ProGearRentals.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var model = new IndexViewModel();
+
+            return View(model);
         }
 
        

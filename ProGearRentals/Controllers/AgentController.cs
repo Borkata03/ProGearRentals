@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Consul;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProGearRentals.Core.Contracts;
 using ProGearRentals.Core.Models.Agent;
+using ProGearRentals.Extensions;
 
 namespace ProGearRentals.Controllers
 {
@@ -17,6 +19,10 @@ namespace ProGearRentals.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Become()
 		{
+			if (await agentservice.ExistById(User.Id()))
+			{
+				return BadRequest();
+			}
 			var model = new BecomeAgentFormModel();
 			return View(model);
 		}

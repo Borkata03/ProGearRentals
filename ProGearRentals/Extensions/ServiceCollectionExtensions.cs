@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ProGearRentals.Core.Contracts;
+using ProGearRentals.Core.Services;
 using ProGearRentals.Core.Services.Equipment;
 using ProGearRentals.Infrastructure.Data;
 using ProGearRentals.Infrastructure.Data.Common;
@@ -12,6 +13,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<IEquipmentService,EquipmentService>();   
+            services.AddScoped<IAgentService,AgentService>();
             return services;     
         }
 

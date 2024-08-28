@@ -5,8 +5,8 @@ using ProGearRentals.Core.Models.Equipment;
 namespace ProGearRentals.Controllers
 {
 
-    [Authorize]
-    public class EquipmentController : Controller
+    
+    public class EquipmentController : BaseController
     {
 
         [AllowAnonymous]

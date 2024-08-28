@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProGearRentals.Core.Contracts;
 using ProGearRentals.Core.Models.Home;
 using ProGearRentals.Models;
@@ -7,7 +8,7 @@ using System.Diagnostics;
 
 namespace ProGearRentals.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IEquipmentService equipmentService;
@@ -20,6 +21,7 @@ namespace ProGearRentals.Controllers
             equipmentService = _equipmentService;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var model = await equipmentService.LastThreeEquipments();
@@ -27,8 +29,8 @@ namespace ProGearRentals.Controllers
             return View(model);
         }
 
-       
 
+        [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

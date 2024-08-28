@@ -1,12 +1,19 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ProGearRentals.Core.Contracts;
 using ProGearRentals.Core.Models.Agent;
 
 namespace ProGearRentals.Controllers
 {
-    [Authorize]
-    public class AgentController : Controller
+   
+    public class AgentController : BaseController
 	{
+		private readonly IAgentService agentservice;
+		public AgentController(IAgentService _agentservice)
+		{
+			agentservice = _agentservice;
+		}
+
 		[HttpGet]
 		public async Task<IActionResult> Become()
 		{

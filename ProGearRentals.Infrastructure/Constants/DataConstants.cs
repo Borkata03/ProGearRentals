@@ -28,7 +28,6 @@ namespace ProGearRentals.Infrastructure.Constants
 
         public const int AgentPhoneNumberMinLength = 7;
 
-
-
+  
     }
 }

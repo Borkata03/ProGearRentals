@@ -42,8 +42,6 @@ namespace ProGearRentals.Core.Services
         {
             return await repository.AllReadOnly<Infrastructure.Data.Models.Equipment>()
                  .AnyAsync(h => h.RenterId == userId);
-
-
         }
     }
 }

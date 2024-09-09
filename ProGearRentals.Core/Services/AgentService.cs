@@ -14,10 +14,25 @@ namespace ProGearRentals.Core.Services
             repository = _repository;
         }
 
-        public async Task<bool> ExistById(string userId)
+        public Task CreateAsync(string userId, string phoneNumber)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> ExistByIdAsync(string userId)
         {
             return await repository.AllReadOnly<Agent>()
                 .AnyAsync(i => i.UserId == userId); 
+        }
+
+        public Task<bool> UserWithPhoneNumberExistAsync(string phoneNumber)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> UsesHasRentsAsync(string userId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

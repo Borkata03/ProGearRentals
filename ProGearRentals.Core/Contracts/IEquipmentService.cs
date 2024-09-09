@@ -4,6 +4,6 @@ namespace ProGearRentals.Core.Contracts
 {
     public interface IEquipmentService
     {
-        Task<IEnumerable<EquipmentIndexModel>> LastThreeEquipments();
+        Task<IEnumerable<EquipmentIndexModel>> LastThreeEquipmentsAsync();
     }
 }

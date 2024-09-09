@@ -2,11 +2,6 @@
 using ProGearRentals.Core.Contracts;
 using ProGearRentals.Core.Models.Home;
 using ProGearRentals.Infrastructure.Data.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProGearRentals.Core.Services.Equipment
 {
@@ -19,7 +14,7 @@ namespace ProGearRentals.Core.Services.Equipment
             repository = _repository;
         }
 
-        public async Task<IEnumerable<EquipmentIndexModel>> LastThreeEquipments()
+        public async Task<IEnumerable<EquipmentIndexModel>> LastThreeEquipmentsAsync()
         {
             return await repository
                 .AllReadOnly<Infrastructure.Data.Models.Equipment>()

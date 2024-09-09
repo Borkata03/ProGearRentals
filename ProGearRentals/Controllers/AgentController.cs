@@ -19,7 +19,7 @@ namespace ProGearRentals.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Become()
 		{
-			if (await agentservice.ExistById(User.Id()))
+			if (await agentservice.ExistByIdAsync(User.Id()))
 			{
 				return BadRequest();
 			}

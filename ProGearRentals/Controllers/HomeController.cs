@@ -24,7 +24,7 @@ namespace ProGearRentals.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            var model = await equipmentService.LastThreeEquipments();
+            var model = await equipmentService.LastThreeEquipmentsAsync();
 
             return View(model);
         }

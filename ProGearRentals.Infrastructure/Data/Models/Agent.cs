@@ -6,6 +6,8 @@ using static ProGearRentals.Infrastructure.Constants.DataConstants;
 
 namespace ProGearRentals.Infrastructure.Data.Models
 {
+
+    [Index(nameof(PhoneNumber), IsUnique = true)]
     [Comment("Equipment Agent")]
     public class Agent
     {

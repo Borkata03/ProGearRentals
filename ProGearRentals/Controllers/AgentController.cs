@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProGearRentals.Core.Contracts;
 using ProGearRentals.Core.Models.Agent;
-using ProGearRentals.Extensions;
+using System.Security.Claims;
 
 namespace ProGearRentals.Controllers
 {

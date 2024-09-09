@@ -1,7 +1,5 @@
-﻿using System.Runtime.CompilerServices;
-using System.Security.Claims;
-
-namespace ProGearRentals.Extensions
+﻿
+namespace System.Security.Claims
 {
     public static   class ClaimPrincipalExtensions
     {

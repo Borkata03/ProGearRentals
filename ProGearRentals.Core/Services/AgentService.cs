@@ -16,7 +16,7 @@ namespace ProGearRentals.Core.Services
 
         public Task CreateAsync(string userId, string phoneNumber)
         {
-            throw new NotImplementedException();
+            
         }
 
         public async Task<bool> ExistByIdAsync(string userId)

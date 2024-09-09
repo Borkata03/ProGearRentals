@@ -13,7 +13,7 @@ namespace ProGearRentals.Core.Contracts
 
         Task<bool>  UserWithPhoneNumberExistAsync(string phoneNumber);
 
-        Task<bool> UsesHasRentsAsync(string userId);
+        Task<bool> UserHasRentsAsync(string userId);
 
         Task CreateAsync(string userId, string phoneNumber); 
     }

@@ -14,9 +14,16 @@ namespace ProGearRentals.Core.Services
             repository = _repository;
         }
 
-        public Task CreateAsync(string userId, string phoneNumber)
+        public async Task CreateAsync(string userId, string phoneNumber)
         {
-            
+            await repository.AddAsync(new Agent() 
+            {
+                UserId = userId,
+                PhoneNumber = phoneNumber
+            });
+
+            await repository.SaveChangesAsync();    
+
         }
 
         public async Task<bool> ExistByIdAsync(string userId)
@@ -25,14 +32,18 @@ namespace ProGearRentals.Core.Services
                 .AnyAsync(i => i.UserId == userId); 
         }
 
-        public Task<bool> UserWithPhoneNumberExistAsync(string phoneNumber)
+        public async Task<bool> UserWithPhoneNumberExistAsync(string phoneNumber)
         {
-            throw new NotImplementedException();
+            return await repository.AllReadOnly<Agent>()
+                .AnyAsync(a => a.PhoneNumber == phoneNumber);
         }
 
-        public Task<bool> UsesHasRentsAsync(string userId)
+        public async Task<bool> UserHasRentsAsync(string userId)
         {
-            throw new NotImplementedException();
+            return await repository.AllReadOnly<Infrastructure.Data.Models.Equipment>()
+                 .AnyAsync(h => h.RenterId == userId);
+
+
         }
     }
 }

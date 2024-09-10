@@ -45,5 +45,11 @@ namespace ProGearRentals.Core.Services
             return await repository.AllReadOnly<Infrastructure.Data.Models.Equipment>()
                  .AnyAsync(h => h.RenterId == userId);
         }
+
+        public async Task<int?> GetAgentIdAsync(string userId)
+        {
+            return (await repository.AllReadOnly<Agent>()
+                 .FirstOrDefaultAsync(a => a.UserId == userId))?.Id;
+        }
     }
 }

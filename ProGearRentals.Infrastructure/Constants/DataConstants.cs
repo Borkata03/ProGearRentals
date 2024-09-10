@@ -20,9 +20,9 @@ namespace ProGearRentals.Infrastructure.Constants
 
         public const int EqipmentDescriptionMaxLenght = 500;
 
-        public const string EquipmentRentingPriceMinimum = "0.00";
+        public const string EquipmentRentingPriceMinimum = "0";
 
-        public const string EquipmentRentingPriceMaximum = "2500.00";
+        public const string EquipmentRentingPriceMaximum = "2500";
 
         public const int AgentPhoneNumberMaxLength = 15;
 

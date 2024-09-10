@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using ProGearRentals.Core.Contracts;
 using ProGearRentals.Core.Services;
-using ProGearRentals.Core.Services.Equipment;
+using ProGearRentals.Core.Services.Equipments;
 using ProGearRentals.Infrastructure.Data;
 using ProGearRentals.Infrastructure.Data.Common;
 

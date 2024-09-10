@@ -7,25 +7,23 @@ namespace ProGearRentals.Attributes
 {
     public class NotAnAgentAttribute : ActionFilterAttribute    
     {
-       
-        public override void OnActionExecuted(ActionExecutedContext context)
+
+        public override void OnActionExecuting(ActionExecutingContext context)
         {
+            base.OnActionExecuting(context);
 
-            base.OnActionExecuted(context);
+            IAgentService? agentService = context.HttpContext.RequestServices.GetService<IAgentService>();
 
-            IAgentService? agentservice = context.HttpContext.RequestServices.GetService<IAgentService>();
-
-            if (agentservice == null)
+            if (agentService == null)
             {
                 context.Result = new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
 
-            if (agentservice != null 
-                    && agentservice.ExistByIdAsync(context.HttpContext.User.Id()).Result)
+            if (agentService != null
+                && agentService.ExistByIdAsync(context.HttpContext.User.Id()).Result)
             {
                 context.Result = new StatusCodeResult(StatusCodes.Status400BadRequest);
             }
-
         }
 
 

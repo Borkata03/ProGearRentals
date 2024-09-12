@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProGearRentals.Core.Contracts;
+using ProGearRentals.Core.Enumeration;
 using ProGearRentals.Core.Models.Equipment;
 using ProGearRentals.Core.Models.Home;
 using ProGearRentals.Infrastructure.Data.Common;
@@ -16,6 +17,67 @@ namespace ProGearRentals.Core.Services.Equipments
             repository = _repository;
         }
 
+        public async Task<EquipmentQueryServiceModel> AllAsync(string? category = null,
+            string? searchTerm = null,
+            EquipmentSorting sorting = EquipmentSorting.Newest,
+            int currentpage = 1,
+            int equipmentPerPage = 1)
+        {
+            var equipmentsToShow = repository.AllReadOnly<Equipment>();
+
+            if (category != null)
+            {
+                equipmentsToShow = equipmentsToShow.Where(h => h.Category.Name == category);
+            }
+
+            if(searchTerm != null)
+            {
+                string normalized = searchTerm.ToLower();
+                equipmentsToShow = equipmentsToShow.Where(h => (
+                h.Title.ToLower().Contains(normalized) ||
+                h.Description.ToLower().Contains(normalized)));
+            }
+
+            equipmentsToShow = sorting switch
+            {
+                EquipmentSorting.Price => equipmentsToShow.OrderByDescending(h => h.PricePerMonth),
+
+                EquipmentSorting.NotRentedFirst => equipmentsToShow.OrderBy(h => h.RenterId == null)
+                .ThenByDescending(h => h.Id),
+          
+                _ => equipmentsToShow.
+                OrderByDescending(h => h.Id)
+            };
+
+            var equipment = await equipmentsToShow
+                .Skip((currentpage - 1) * equipmentPerPage)
+                .Take(equipmentPerPage)
+                .Select(p => new EquipmentServiceModel
+                {
+                    Id = p.Id,
+                    Title = p.Title,
+                    ImageUrl = p.ImageUrl,
+                    IsRented = p.RenterId != null,
+                    PricePerMonth = p.PricePerMonth,
+
+                }).ToListAsync();
+
+            int totalEquipment = await equipmentsToShow.CountAsync();
+
+            return new EquipmentQueryServiceModel()
+            {
+                Equipments = equipment,
+                TotalEquipmentsCount = totalEquipment,
+            };
+
+        }
+        public async Task<IEnumerable<string>> AllCategoriesNames()
+        {
+            return await repository.AllReadOnly<Category>()
+                 .Select(c => c.Name).Distinct().ToListAsync();
+        }
+
+
         public async Task<IEnumerable<EquipmentCategoryServiceModel>> AllCategoriesAsync()
         {
             return await repository.AllReadOnly<Category>()
@@ -27,6 +89,7 @@ namespace ProGearRentals.Core.Services.Equipments
                 }).ToListAsync();
         }
 
+       
         public async Task<bool> CategoryExistAsync(int categoryId)
         {
            return await repository.AllReadOnly<Category>()

@@ -9,7 +9,7 @@ namespace ProGearRentals.Core.Models.Equipment
 		[StringLength(EquipmentTitleMaxLenght,
 			MinimumLength = EquipmentTitleMinLenght,
 			ErrorMessage = LengthMessage)]
-		public string Title { get;  set; } = null;
+		public string Title { get;  set; } = null!;
 
 		[Required(ErrorMessage = RequiredMessage)]
 		[StringLength(EqipmentDescriptionMaxLenght,

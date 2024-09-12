@@ -22,11 +22,20 @@ namespace ProGearRentals.Controllers
 
         [AllowAnonymous]
         [HttpGet] 
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery]AllEquipmentsQueryModel query)
         {
-            var model = new AllEquipmentsQueryModel();
+            var model = await equipmentService.AllAsync(query.Category
+                ,query.SearchItem
+                ,query.Sorting
+                ,query.CurrentPage
+                ,query.EquipmentsPerPage);
 
-            return View(model);
+
+            query.TotalEquipmentsCount = model.TotalEquipmentsCount;
+             query.Equipments = model.Equipments;
+            query.Categories = await equipmentService.AllCategoriesNames();
+
+            return View(query);
         }
 
         [HttpGet]

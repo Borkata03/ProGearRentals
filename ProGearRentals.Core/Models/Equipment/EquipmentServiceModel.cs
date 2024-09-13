@@ -28,5 +28,6 @@ namespace ProGearRentals.Core.Models.Equipment
 
         [Display(Name = "is Rented")]
         public bool IsRented { get; set; }
+
     }
 }

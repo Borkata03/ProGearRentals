@@ -23,5 +23,14 @@ namespace ProGearRentals.Core.Contracts
             int equipmentPerPage = 1);
 
         Task<IEnumerable<string>> AllCategoriesNames();
+
+        Task<IEnumerable<EquipmentServiceModel>> AllEquipmentsByAgentId(int agentId);   
+
+        Task<IEnumerable<EquipmentServiceModel>> AllEquipmentsByUserId(string userId);
+
+
+        Task<bool> ExistAsync(int id);
+
+        Task<EquipmentDetailsServiceModel> EqipmentDetailsByIdAsync(int id);
     }
 }

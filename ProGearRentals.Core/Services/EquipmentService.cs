@@ -40,7 +40,7 @@ namespace ProGearRentals.Core.Services.Equipments
 
             equipmentsToShow = sorting switch
             {
-                EquipmentSorting.Price => equipmentsToShow.OrderByDescending(h => h.PricePerMonth),
+                EquipmentSorting.Price => equipmentsToShow.OrderBy(h => h.PricePerMonth),
 
                 EquipmentSorting.NotRentedFirst => equipmentsToShow.OrderBy(h => h.RenterId == null)
                 .ThenByDescending(h => h.Id),
@@ -52,15 +52,8 @@ namespace ProGearRentals.Core.Services.Equipments
             var equipment = await equipmentsToShow
                 .Skip((currentpage - 1) * equipmentPerPage)
                 .Take(equipmentPerPage)
-                .Select(p => new EquipmentServiceModel
-                {
-                    Id = p.Id,
-                    Title = p.Title,
-                    ImageUrl = p.ImageUrl,
-                    IsRented = p.RenterId != null,
-                    PricePerMonth = p.PricePerMonth,
-
-                }).ToListAsync();
+                .ProjectEquipment()
+                .ToListAsync();
 
             int totalEquipment = await equipmentsToShow.CountAsync();
 
@@ -127,6 +120,53 @@ namespace ProGearRentals.Core.Services.Equipments
                     Imageurl = e.ImageUrl,
                     Title = e.Title,
                 }).ToListAsync();
+        }
+
+        public async Task<IEnumerable<EquipmentServiceModel>> AllEquipmentsByAgentId(int agentId)
+        {
+            return await repository.AllReadOnly<Equipment>()
+                .Where(a => a.AgentId == agentId)
+                .ProjectEquipment()
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<EquipmentServiceModel>> AllEquipmentsByUserId(string userId)
+        {
+            return await repository.AllReadOnly<Equipment>()
+                .Where(u => u.RenterId == userId)
+                .ProjectEquipment()
+                .ToListAsync();   
+        }
+
+        public async Task<bool> ExistAsync(int id)
+        {
+            return await repository.AllReadOnly<Equipment>()
+                .AnyAsync(e => e.Id == id);
+        }
+
+        public async Task<EquipmentDetailsServiceModel> EqipmentDetailsByIdAsync(int id)
+        {
+            return await repository.AllReadOnly<Equipment>().
+                 Where(e => e.Id == id)
+                 .Select(e => new EquipmentDetailsServiceModel()
+                 {
+                     Id=e.Id,
+                     Agent = new Models.Agent.AgentServiceModel()
+                     {
+                         Email = e.Agent.User.Email,
+                         PhoneNumber = e.Agent.PhoneNumber
+                     },
+                     Category = e.Category.Name,
+                     Description = e.Description,   
+                     ImageUrl = e.ImageUrl,
+                     IsRented = e.RenterId != null,
+                     PricePerMonth = e.PricePerMonth,
+                     Title = e.Title,
+
+
+
+                 }).FirstAsync();
+
         }
     }
 }

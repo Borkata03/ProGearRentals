@@ -21,6 +21,7 @@ namespace ProGearRentals.Controllers
         }
 
         [AllowAnonymous]
+
         [HttpGet] 
         public async Task<IActionResult> All([FromQuery]AllEquipmentsQueryModel query)
         {
@@ -41,18 +42,36 @@ namespace ProGearRentals.Controllers
         [HttpGet]
         public async Task<IActionResult> Mine()
         {
-            var model = new AllEquipmentsQueryModel();
+            IEnumerable<EquipmentServiceModel> myEquipments;
 
-            return View(model);
+            var userId = User.Id();
+
+            if (await agentService.ExistByIdAsync(userId))
+            {
+                int currentAgentId = await agentService.GetAgentIdAsync(userId) ?? 0;
+
+                myEquipments =  await equipmentService.AllEquipmentsByAgentId(currentAgentId);
+            }
+            else
+            {
+                myEquipments = await equipmentService.AllEquipmentsByUserId(userId);
+            }
+
+            return View(myEquipments);
         }
 
 
         [HttpGet]
-        public async Task<IActionResult> Details()
+        public async Task<IActionResult> Details(int id)
         {
 
-            var model = new EquipmentDetailsViewModel();
-            return View(model); 
+            if (await equipmentService.ExistAsync(id) == false)
+            {
+                return BadRequest();
+            }
+            var model = await equipmentService.EqipmentDetailsByIdAsync(id);
+
+            return View(model);
         }
 
         [HttpGet]
@@ -107,13 +126,13 @@ namespace ProGearRentals.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var model = new EquipmentDetailsViewModel();
+            var model = new EquipmentDetailsServiceModel();
 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(int id, EquipmentDetailsViewModel model)
+        public async Task<IActionResult> Delete(int id, EquipmentDetailsServiceModel model)
         {
             return RedirectToAction(nameof(All));
         }

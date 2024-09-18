@@ -38,5 +38,11 @@ namespace ProGearRentals.Core.Contracts
         Task<bool> HasAgentWithIdAsync(int equipmentId, string userId);
 
         Task<EquipmentFormModel?> GetEquipmentFormModelByIdAsync(int id);
+
+        Task DeleteAsync(int id);
+
+        Task<bool>IsRentedAsync(int equipmentId);
+
+        Task<bool> IsRentedByUserWIthIdAsync()
     }
 }

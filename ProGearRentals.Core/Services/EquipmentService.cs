@@ -215,5 +215,12 @@ namespace ProGearRentals.Core.Services.Equipments
 
             return equipment;
         }
+
+        public async Task DeleteAsync(int id)
+        {
+            await repository.DeleteAsync<Equipment>(id);
+            await repository.SaveChangesAsync();
+
+        }
     }
 }

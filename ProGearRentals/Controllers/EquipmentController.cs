@@ -161,15 +161,47 @@ namespace ProGearRentals.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var model = new EquipmentDetailsServiceModel();
+            if (await equipmentService.ExistAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await equipmentService.HasAgentWithIdAsync(id,User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+
+           
+            var equipment = await equipmentService.EqipmentDetailsByIdAsync(id);
+
+            var model = new EquipmentDetailsViewModel()
+            {
+                Id = equipment.Id,
+                Title = equipment.Title,
+                ImageUrl = equipment.ImageUrl,
+            };
 
             return View(model);
+
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(int id, EquipmentDetailsServiceModel model)
         {
+            if (await equipmentService.ExistAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await equipmentService.HasAgentWithIdAsync(id, User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+
+           await equipmentService.DeleteAsync(model.Id);
+
             return RedirectToAction(nameof(All));
+
         }
 
         [HttpPost]

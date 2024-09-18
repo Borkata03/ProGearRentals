@@ -6,3 +6,11 @@
 	ViewData["Title"] = "Edit Equipments";
 }
 <h2 class="text-center">@ViewData["Title"]</h2>
+
+
+<partial name = "_EquipmentFormPartial" model ="@Model" />
+
+
+@section Scripts {
+	<partial name = "_ValidationScriptsPartial"/>
+}

@@ -5,6 +5,7 @@ using ProGearRentals.Core.Models.Equipment;
 using ProGearRentals.Core.Models.Home;
 using ProGearRentals.Infrastructure.Data.Common;
 using ProGearRentals.Infrastructure.Data.Models;
+using System.Net.WebSockets;
 
 namespace ProGearRentals.Core.Services.Equipments
 {
@@ -167,6 +168,52 @@ namespace ProGearRentals.Core.Services.Equipments
 
                  }).FirstAsync();
 
+        }
+
+        public async Task EditAsync(EquipmentFormModel model, int equipmentId)
+        {
+            var equipment = await repository.GetByIdAsync<Equipment>(equipmentId);
+
+
+            if (equipment != null)
+            {
+                equipment.Title = model.Title;
+                equipment.Description = model.Description;
+                equipment.ImageUrl = model.ImageUrl;
+                equipment.PricePerMonth = model.PricePerMonth;
+                equipment.CategoryId = model.CategoryId;
+
+                await repository.SaveChangesAsync();
+            }
+        }
+
+        public async Task<bool> HasAgentWithIdAsync(int equipmentId, string userId)
+        {
+            return await repository.AllReadOnly<Equipment>()
+                .AnyAsync(h => h.Id == equipmentId && h.Agent.UserId == userId);
+        }
+
+        public async Task<EquipmentFormModel?> GetEquipmentFormModelByIdAsync(int id)
+        {
+            var equipment =  await repository.AllReadOnly<Equipment>()
+                .Where(h => h.Id == id)
+                .Select(h => new EquipmentFormModel()
+                {
+                    Description = h.Description,
+                    CategoryId = h.CategoryId,
+                    ImageUrl = h.ImageUrl,
+                    PricePerMonth = h.PricePerMonth,
+                    Title = h.Title,
+
+                }).FirstOrDefaultAsync();
+
+            if (equipment != null)
+            {
+                equipment.Categories = await AllCategoriesAsync();
+            }
+            
+
+            return equipment;
         }
     }
 }

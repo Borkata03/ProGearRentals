@@ -24,7 +24,7 @@ namespace ProGearRentals.Core.Contracts
 
         Task<IEnumerable<string>> AllCategoriesNames();
 
-        Task<IEnumerable<EquipmentServiceModel>> AllEquipmentsByAgentId(int agentId);   
+        Task<IEnumerable<EquipmentServiceModel>> AllEquipmentsByAgentId(int agentId);
 
         Task<IEnumerable<EquipmentServiceModel>> AllEquipmentsByUserId(string userId);
 
@@ -32,5 +32,11 @@ namespace ProGearRentals.Core.Contracts
         Task<bool> ExistAsync(int id);
 
         Task<EquipmentDetailsServiceModel> EqipmentDetailsByIdAsync(int id);
+
+        Task EditAsync(EquipmentFormModel model, int equipmentId);
+
+        Task<bool> HasAgentWithIdAsync(int equipmentId, string userId);
+
+        Task<EquipmentFormModel?> GetEquipmentFormModelByIdAsync(int id);
     }
 }

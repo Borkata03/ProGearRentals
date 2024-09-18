@@ -112,7 +112,18 @@ namespace ProGearRentals.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var model = new EquipmentFormModel();
+            if (await equipmentService.ExistAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await equipmentService.HasAgentWithIdAsync(id,User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+
+           
+            var model = await equipmentService.GetEquipmentFormModelByIdAsync(id);
 
             return View(model); 
         }
@@ -120,7 +131,31 @@ namespace ProGearRentals.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id ,EquipmentFormModel model)
         {
-            return RedirectToAction(nameof (Details) , new {id = 1});  
+            if (await equipmentService.ExistAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await equipmentService.HasAgentWithIdAsync(id, User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+
+            if (await equipmentService.CategoryExistAsync(model.CategoryId) == false)
+            {
+                ModelState.AddModelError(nameof(model.CategoryId), "Category does not exist");
+            }
+
+            if (ModelState.IsValid == false)
+            {
+                model.Categories = await equipmentService.AllCategoriesAsync();
+
+                return View(model);
+            }
+
+            await equipmentService.EditAsync(model, id);
+
+            return RedirectToAction(nameof (Details) , new {id});  
         }
 
         [HttpGet]

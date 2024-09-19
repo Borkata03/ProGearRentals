@@ -15,7 +15,7 @@ namespace ProGearRentals.Infrastructure.Data.SeedDb
         {
             var data = new SeedData();
 
-            builder.HasData(new Category[] { data.ClimbingHarnesses, data.WaterproofJacket, data.Snowboard });
+            builder.HasData(new Category[] { data.WinterSportsEquipment, data.WaterEquipment, data.MountainEquipment,data.SummerGear});
         }
     }
 }

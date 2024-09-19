@@ -53,9 +53,10 @@ namespace ProGearRentals.Infrastructure.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "WaterproofJackets" },
-                    { 2, "Snowboard" },
-                    { 3, "ClimbingHarnesses" }
+                    { 1, "SummerGear" },
+                    { 2, "WaterEquipment" },
+                    { 3, "MountainEquipment" },
+                    { 4, "WinterSportsEquipment" }
                 });
 
             migrationBuilder.InsertData(

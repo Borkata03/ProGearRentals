@@ -15,8 +15,6 @@ namespace ProGearRentals.Infrastructure.Data.SeedDb
         public void Configure(EntityTypeBuilder<Review> builder)
         {
 
-           
-
             builder
                 .HasOne(r => r.Equipment)
                 .WithMany(e => e.Reviews)

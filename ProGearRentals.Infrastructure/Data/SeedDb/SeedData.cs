@@ -16,11 +16,13 @@ namespace ProGearRentals.Infrastructure.Data.SeedDb
 
        public Agent Agent { get; set; }
 
-       public Category WaterproofJacket { get; set; }
+       public Category MountainEquipment { get; set; }
 
-       public Category Snowboard { get; set; }
+       public Category WaterEquipment { get; set; }
 
-       public Category ClimbingHarnesses { get; set; }
+       public Category WinterSportsEquipment { get; set; }
+
+       public Category SummerGear { get; set; }
 
        public Equipment FirstEquipment { get; set; }
 
@@ -43,7 +45,7 @@ namespace ProGearRentals.Infrastructure.Data.SeedDb
             SeedUsers();
             SeedAgent();
             SeedCategories();
-            SeedHouses();
+            SeedEquipments();
             SeedReviews();
             SeedReservation();  
         }
@@ -89,26 +91,32 @@ namespace ProGearRentals.Infrastructure.Data.SeedDb
 
         private void SeedCategories()
         {
-            WaterproofJacket = new Category()
+            MountainEquipment = new Category()
             {
                 Id = 1,
-                Name = "WaterproofJackets"
+                Name = "MountainEquipment"
             };
 
-            Snowboard = new Category()
+            WaterEquipment = new Category()
             {
                 Id = 2,
-                Name = "Snowboard"
+                Name = "WaterEquipment"
             };
 
-           ClimbingHarnesses = new Category()
+           WinterSportsEquipment = new Category()
            {
                 Id = 3,
-                Name = "ClimbingHarnesses"
+                Name = "WinterSportsEquipment"
            };
+
+            SummerGear = new Category()
+            {
+                Id = 5,
+                Name = "SummerGear"
+            };
         }
 
-        private void SeedHouses()
+        private void SeedEquipments()
         {
             FirstEquipment = new Equipment()
             {
@@ -117,7 +125,7 @@ namespace ProGearRentals.Infrastructure.Data.SeedDb
                 Description = "The snowboard is a versatile and essential piece of equipment for snowboarding enthusiasts. ",
                 ImageUrl = "https://cdn02.plentymarkets.com/dqaqtvmxowl5/item/images/19158/full/Jones-Frontier-Wide-Snowboard-21-Freeride-All-Mountain-Powder.jpg",
                 PricePerMonth = 150.00M,
-                CategoryId = Snowboard.Id,
+                CategoryId = WinterSportsEquipment.Id,
                 AgentId = Agent.Id,
                 RenterId = GuestUser.Id
             };
@@ -129,7 +137,7 @@ namespace ProGearRentals.Infrastructure.Data.SeedDb
                 Description = "The waterproof jacket is a crucial piece of gear for outdoor enthusiasts and athletes who need protection from rain and wind. ",
                 ImageUrl = "https://th.bing.com/th/id/R.8cb5238aadcab3b3db54f3ce5d8add34?rik=hJ9E41YY2Idwtg&pid=ImgRaw&r=0",
                 PricePerMonth = 120.00M,
-                CategoryId = WaterproofJacket.Id,
+                CategoryId = WinterSportsEquipment.Id,
                 AgentId = Agent.Id,
               
             };
@@ -141,7 +149,7 @@ namespace ProGearRentals.Infrastructure.Data.SeedDb
                 Description = "A climbing harness is an essential piece of safety equipment for climbers, providing security and comfort while ascending. ",
                 ImageUrl = "https://th.bing.com/th/id/R.5919827440acbdd756a86ad4c0fc3c50?rik=gWbQT31EPisuSQ&pid=ImgRaw&r=0",
                 PricePerMonth = 250.00M,
-                CategoryId = ClimbingHarnesses.Id,
+                CategoryId = MountainEquipment.Id,
                 AgentId = Agent.Id,
               
             };

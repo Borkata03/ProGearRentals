@@ -41,8 +41,18 @@ namespace ProGearRentals.Core.Contracts
 
         Task DeleteAsync(int id);
 
-        Task<bool>IsRentedAsync(int equipmentId);
+        Task<bool> IsRentedAsync(int equipmentId);
 
-        Task<bool> IsRentedByUserWIthIdAsync()
+        Task<bool> IsRentedByUserWithIdAsync(int equipmentId, string userId);
+        Task RentAsync(int id,string userId);
+
+        Task LeaveAsync(int id,string userId);   
+
+
+
+
+
+
+
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ProGearRentals.Attributes;
 using ProGearRentals.Core.Contracts;
+using ProGearRentals.Core.Exceptions;
 using ProGearRentals.Core.Models.Equipment;
 using System.Security.Claims;
 
@@ -14,10 +15,15 @@ namespace ProGearRentals.Controllers
         private readonly IEquipmentService equipmentService;
         private readonly IAgentService agentService;
 
-        public EquipmentController(IEquipmentService _equipmentService, IAgentService _agentService)
+        private readonly ILogger logger;
+
+        public EquipmentController(IEquipmentService _equipmentService
+            , IAgentService _agentService
+            , ILogger<EquipmentController> _logger)
         {
             equipmentService = _equipmentService;
             agentService = _agentService;
+            logger  = _logger;
         }
 
         [AllowAnonymous]
@@ -199,7 +205,7 @@ namespace ProGearRentals.Controllers
             }
 
            await equipmentService.DeleteAsync(model.Id);
-
+            
             return RedirectToAction(nameof(All));
 
         }
@@ -207,13 +213,52 @@ namespace ProGearRentals.Controllers
         [HttpPost]
         public async Task<IActionResult> Rent(int id)
         {
-            return RedirectToAction(nameof(Mine));
+            if (await equipmentService.ExistAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await agentService.ExistByIdAsync(User.Id())
+              )
+            {
+                return Unauthorized();
+            }
+
+            if (await equipmentService.IsRentedAsync(id))
+            {
+                return BadRequest();
+            }
+
+            await equipmentService.RentAsync(id, User.Id());
+
+        
+
+            return RedirectToAction(nameof(All));
         }
 
         [HttpPost]
         public async Task<IActionResult> Leave(int id)
         {
-            return RedirectToAction(nameof(Mine));
+            if (await equipmentService.ExistAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                await equipmentService.LeaveAsync(id, User.Id());
+
+            }
+            catch (UnauthorizedActionException ua)
+            {
+                logger.LogError(ua, "EquipmentController/Leave");
+
+                return Unauthorized();
+            }
+
+
+
+            return RedirectToAction(nameof(All));
         }
 
 

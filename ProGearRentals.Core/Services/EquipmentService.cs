@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProGearRentals.Core.Contracts;
 using ProGearRentals.Core.Enumeration;
+using ProGearRentals.Core.Exceptions;
 using ProGearRentals.Core.Models.Equipment;
 using ProGearRentals.Core.Models.Home;
 using ProGearRentals.Infrastructure.Data.Common;
@@ -142,8 +143,9 @@ namespace ProGearRentals.Core.Services.Equipments
         public async Task<bool> ExistAsync(int id)
         {
             return await repository.AllReadOnly<Equipment>()
-                .AnyAsync(e => e.Id == id);
+                .AnyAsync(h => h.Id == id);
         }
+
 
         public async Task<EquipmentDetailsServiceModel> EqipmentDetailsByIdAsync(int id)
         {
@@ -222,5 +224,61 @@ namespace ProGearRentals.Core.Services.Equipments
             await repository.SaveChangesAsync();
 
         }
+
+        public async Task<bool> IsRentedAsync(int equipmentId)
+        {
+            bool? result = null;
+
+            var equipment = await repository.GetByIdAsync<Equipment>(equipmentId);
+
+            if (equipment != null)
+            {
+               result = equipment.RenterId != null;
+            }
+
+            return result ?? false;
+        }
+
+        public async Task<bool> IsRentedByUserWithIdAsync(int equipmentId, string userId)
+        {
+            bool? result = null;
+
+            var equipment = await repository.GetByIdAsync<Equipment>(equipmentId);
+
+            if (equipment != null)
+            {
+                result = equipment.RenterId == userId;
+            }
+
+            return result ?? false; 
+        }
+
+        public async Task RentAsync(int id, string userId)
+        {
+            var equipment = await repository.GetByIdAsync<Equipment>(id);
+
+            if (equipment != null)
+            {
+                equipment.RenterId = userId;
+                await repository.SaveChangesAsync();
+            }
+        }
+
+        public async Task LeaveAsync(int id, string userId)
+        {
+            var equipment = await repository.GetByIdAsync<Equipment>(id);
+
+            if (equipment != null)
+            {
+                if (equipment.RenterId != userId)
+                {
+                    throw new UnauthorizedActionException("The user is not the renter");
+                }
+
+                equipment.RenterId = null;
+                await repository.SaveChangesAsync();
+            }
+        }
     }
+    
 }

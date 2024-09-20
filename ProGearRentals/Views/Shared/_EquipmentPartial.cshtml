@@ -12,28 +12,30 @@
             <h6>(@(Model.IsRented ? "Rented" : "Not Rented"))</h6>
             <br />
             <a asp-controller="Equipment" asp-action="Details" asp-route-id="@Model.Id"
-               class="btn btn-success">Details</a>
+               asp-route-information="@Model.GetInformation()" class ="btn btn-dark">Details</a>
             @if (this.User.Identity.IsAuthenticated)
             {
                 <a asp-controller="Equipment" asp-action="Edit" asp-route-id="@Model.Id"
-               class="btn btn-warning">Edit</a>
+               class="btn btn-dark">Edit</a>
                 <a asp-controller="Equipment" asp-action="Delete" asp-route-id="@Model.Id"
-               class="btn btn-danger">Delete</a>
+               class="btn btn-dark">Delete</a>
                 <p></p>
                 @if (!Model.IsRented)
                 {
                     <form class="input-group-sm" asp-controller="Equipment"
                   asp-action="Rent" asp-route-id="@Model.Id" method="post">
-                        <input class="btn btn-primary" type="submit" value="Rent" />
+                        <input class="btn btn-dark" type="submit" value="Rent" />
                     </form>
                 }
                 else
                 {
                     <form asp-controller="Equipment" asp-action="Leave"
                   asp-route-id="@Model.Id" method="post">
-                        <input class="btn btn-primary" type="submit" value="Leave" />
+                        <input class="btn btn-dark" type="submit" value="Leave" />
                     </form>
                 }
+                
+               
             }
         </div>
     </div>

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProGearRentals.Attributes;
 using ProGearRentals.Core.Contracts;
 using ProGearRentals.Core.Exceptions;
+using ProGearRentals.Core.Extensions;
 using ProGearRentals.Core.Models.Equipment;
 using System.Security.Claims;
 
@@ -68,14 +69,21 @@ namespace ProGearRentals.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int id,string info)
         {
 
             if (await equipmentService.ExistAsync(id) == false)
             {
                 return BadRequest();
             }
+
+           
             var model = await equipmentService.EqipmentDetailsByIdAsync(id);
+
+           /* if (info != model.GetInformation())
+            {
+                return BadRequest();
+            }*/
 
             return View(model);
         }

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProGearRentals.Infrastructure.Data;
 using ProGearRentals.ModelBinders;
@@ -11,6 +12,7 @@ builder.Services.AddApplicationIdentity(builder.Configuration);
 builder.Services.AddControllersWithViews(option =>
 {
     option.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+    option.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
 });
 
 builder.Services.AddApplicationServices();
@@ -38,10 +40,20 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthentication();
-app.UseAuthorization(); 
+app.UseAuthorization();
 
-app.MapDefaultControllerRoute();
-app.MapRazorPages();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "Equipment Details",
+        pattern: "/Equipment/Details/{id}/{info}",
+        defaults: new {Controller = "Equipment",Action = "Details"}
+    );
+    endpoints.MapDefaultControllerRoute();
+    endpoints.MapRazorPages();
+
+});
+
 
 app.Run();
 

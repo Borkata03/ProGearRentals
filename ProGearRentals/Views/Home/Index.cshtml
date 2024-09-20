@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<EquipmentIndexModel>
 
+
+
 @{
     ViewData["Title"] = "Home Page";
     var equipment = Model.ToList();
@@ -21,21 +23,24 @@
     </div>
 }
 
+
 <div class="mb-6"></div>
 
 @if (equipment.Any())
 {
-    <div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false">
+    <h1 class="display-6" style=" text-align: center;">Welcome to the best place for renting equipment!</h1>
+    <div id="carouselExampleControlsNoTouching" class="carousel slide mt-5" data-bs-touch="false">
         <div class="carousel-inner">
             @for (int i = 0; i < equipment.Count(); i++)
             {
                 var currentEquipment = equipment[i];
                 <div class="carousel-item @(i == 0 ? "active" : string.Empty)">
-                    <img class="d-block w-100" style="height:500px"
+                    <img class="d-block w-50 mx-auto" style="height:400px;"
                  src="@currentEquipment.Imageurl" alt="@currentEquipment.Title">
-                    <div class="carousel-caption d-none d-md-block">
+
+                    <div class="text-center mt-5">
                         <h5>
-                            <a class="btn btn-primary" asp-controller="Equipment" asp-action="Details" asp-route-id="@currentEquipment.Id">
+                            <a class="btn btn-dark style="border-radius: 50%;" asp-controller="Equipment" asp-action="Details" asp-route-id="@currentEquipment.Id" asp-route-information="@currentEquipment.GetInformation()">
                                 @currentEquipment.Title
                             </a>
                         </h5>
@@ -43,13 +48,25 @@
                 </div>
             }
         </div>
+
+
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="carousel-control-prev-icon" aria-hidden="true" style="border-radius: 50%;"></span>
             <span class="visually-hidden">Previous</span>
         </button>
         <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="carousel-control-next-icon" aria-hidden="true" style="border-radius: 50%;"></span>
             <span class="visually-hidden">Next</span>
         </button>
     </div>
+
+    <style>
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: black;
+        }
+    </style>
+
+
 }
+

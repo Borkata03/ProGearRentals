@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ProGearRentals.Core.Contracts;
+using System.ComponentModel.DataAnnotations;
 using static ProGearRentals.Core.Constants.MessageConstants;
 using static ProGearRentals.Infrastructure.Constants.DataConstants;
 namespace ProGearRentals.Core.Models.Equipment
 {
-	public class EquipmentFormModel
+	public class EquipmentFormModel : IEquipmentModel
 	{
 		[Required(ErrorMessage = RequiredMessage)]
 		[StringLength(EquipmentTitleMaxLenght,

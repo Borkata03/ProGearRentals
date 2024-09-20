@@ -121,6 +121,8 @@ namespace ProGearRentals.Core.Services.Equipments
                     Id = e.Id,
                     Imageurl = e.ImageUrl,
                     Title = e.Title,
+                    Description = e.Description,
+
                 }).ToListAsync();
         }
 

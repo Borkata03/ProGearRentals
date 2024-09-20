@@ -19,6 +19,7 @@ namespace System.Linq
                 PricePerMonth = e.PricePerMonth,
                 ImageUrl = e.ImageUrl,
                 IsRented = e.RenterId != null,
+                Description = e.Description,
             });
                 
 

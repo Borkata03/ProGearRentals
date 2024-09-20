@@ -1,6 +1,8 @@
-﻿namespace ProGearRentals.Core.Models.Home
+﻿using ProGearRentals.Core.Contracts;
+
+namespace ProGearRentals.Core.Models.Home
 {
-    public  class EquipmentIndexModel
+    public  class EquipmentIndexModel : IEquipmentModel
     {
         public int Id { get; set; }
 

@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ProGearRentals.Core.Contracts;
+using System.ComponentModel.DataAnnotations;
 using static ProGearRentals.Core.Constants.MessageConstants;
 using static ProGearRentals.Infrastructure.Constants.DataConstants;
 
 namespace ProGearRentals.Core.Models.Equipment
 {
-    public class EquipmentServiceModel
+    public class EquipmentServiceModel : IEquipmentModel
     {
         public int Id { get; set; }
 
@@ -13,6 +14,11 @@ namespace ProGearRentals.Core.Models.Equipment
             MinimumLength = EquipmentTitleMinLenght,
             ErrorMessage = LengthMessage)]
         public string Title { get; set; } = string.Empty;
+
+        [Required()]
+        [StringLength(EqipmentDescriptionMaxLenght,
+            MinimumLength = EqipmentDescriptionMinLenght)]
+        public string Description { get; set; } = string.Empty;
 
 
         [Required(ErrorMessage = RequiredMessage)]
@@ -28,6 +34,7 @@ namespace ProGearRentals.Core.Models.Equipment
 
         [Display(Name = "is Rented")]
         public bool IsRented { get; set; }
+        
 
     }
 }

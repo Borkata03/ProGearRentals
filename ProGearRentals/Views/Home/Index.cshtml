@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<EquipmentIndexModel>
+@inject IAgentService agentservice
+@inject IEquipmentService equipmentservice
 
 
 
@@ -16,8 +18,9 @@
             Why don't you add one?
         </p>
         <hr class="my-4">
-        @if (User?.Identity?.IsAuthenticated ?? false)
+        @if (User?.Identity?.IsAuthenticated ?? false && await agentservice.ExistByIdAsync(User.Id()))
         {
+         
             <a asp-controller="Equipment" asp-action="Add" class="btn btn-primary btn-lg">Add Equipment</a>
         }
     </div>

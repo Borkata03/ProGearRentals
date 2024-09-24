@@ -1,4 +1,6 @@
 ﻿@model EquipmentServiceModel
+@inject IAgentService agentservice
+@inject IEquipmentService equipmentservice
 
 <div class="col-md-4">
     <div class="card mb-3">
@@ -15,24 +17,34 @@
                asp-route-information="@Model.GetInformation()" class ="btn btn-dark">Details</a>
             @if (this.User.Identity.IsAuthenticated)
             {
-                <a asp-controller="Equipment" asp-action="Edit" asp-route-id="@Model.Id"
+                @if (await equipmentservice.HasAgentWithIdAsync(Model.Id,User.Id()))
+                {
+                    <a asp-controller="Equipment" asp-action="Edit" asp-route-id="@Model.Id"
                class="btn btn-dark">Edit</a>
-                <a asp-controller="Equipment" asp-action="Delete" asp-route-id="@Model.Id"
+                    <a asp-controller="Equipment" asp-action="Delete" asp-route-id="@Model.Id"
                class="btn btn-dark">Delete</a>
-                <p></p>
-                @if (!Model.IsRented)
-                {
-                    <form class="input-group-sm" asp-controller="Equipment"
-                  asp-action="Rent" asp-route-id="@Model.Id" method="post">
-                        <input class="btn btn-dark" type="submit" value="Rent" />
-                    </form>
                 }
-                else
+              
+                <p></p>
+                @if (!Model.IsRented && (await agentservice.ExistByIdAsync(User.Id())) == false)
                 {
-                    <form asp-controller="Equipment" asp-action="Leave"
-                  asp-route-id="@Model.Id" method="post">
-                        <input class="btn btn-dark" type="submit" value="Leave" />
-                    </form>
+                    
+                        <form class="input-group-sm" asp-controller="Equipment"
+                  asp-action="Rent" asp-route-id="@Model.Id" method="post">
+                            <input class="btn btn-dark" type="submit" value="Rent" />
+                        </form>
+                    
+                   
+                }
+                else if (await equipmentservice.IsRentedByUserWithIdAsync(Model.Id, User.Id()))
+                {
+                   
+                        <form asp-controller="Equipment" asp-action="Leave"
+                         asp-route-id="@Model.Id" method="post">
+                            <input class="btn btn-dark" type="submit" value="Leave" />
+                        </form>
+                    
+                  
                 }
                 
                

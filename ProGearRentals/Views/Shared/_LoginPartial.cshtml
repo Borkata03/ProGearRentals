@@ -4,6 +4,15 @@
 @inject UserManager<ApplicationUser> UserManager
 @inject IAgentService agentservice
 
+@{
+    string username = string.Empty;
+    if (SignInManager.IsSignedIn(User))
+    {
+        var user = await UserManager.FindByIdAsync(User.Id());
+        username = $"{user.FirstName} {user.LastName}";
+    }
+}
+
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
@@ -15,7 +24,7 @@
         }
         
         <li class="nav-item">
-            <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title ="Manage">Hello @User.Identity.Name </a>
+            <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title ="Manage">Hello @username!   </a>
         </li>
     
     <li class="nav-item">

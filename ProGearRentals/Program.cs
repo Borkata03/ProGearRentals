@@ -5,6 +5,8 @@ using ProGearRentals.Infrastructure.Data;
 using ProGearRentals.ModelBinders;
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("ProGearRentalsDbContextConnection") ?? throw new InvalidOperationException("Connection string 'ProGearRentalsDbContextConnection' not found.");
+
 
 builder.Services.AddApplicationDbContext(builder.Configuration);
 builder.Services.AddApplicationIdentity(builder.Configuration);     

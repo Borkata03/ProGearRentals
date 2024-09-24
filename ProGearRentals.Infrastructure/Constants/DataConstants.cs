@@ -30,6 +30,8 @@ namespace ProGearRentals.Infrastructure.Constants
 
         public const int UserFirstNameMaxLength = 15;
 
+        public const int UserNameMinLength = 5;
+
         public const int UserLastNameMaxLength = 15;
 
 

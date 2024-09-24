@@ -49,5 +49,30 @@ namespace ProGearRentals.Controllers
 
             return RedirectToAction(nameof(EquipmentController.All), "Equipment");
         }
+
+        [HttpPost]
+        [MustBeAgent]
+        public async Task<IActionResult> BecomeUser(string userId)
+        {
+            if (!await agentService.ExistByIdAsync(User.Id()))
+            {
+                return BadRequest();
+            }
+
+            if (await agentService.UserHasRentsAsync(User.Id()))
+            {
+                return BadRequest();
+            }
+
+            var user = await agentService.GetAgentIdAsync(User.Id());
+
+            if (user != null)
+            {
+                await agentService.DeleteAgentAsync(user);
+            }
+            
+
+            return RedirectToAction(nameof(AgentController.Become), "Agent");
+        }
     }
 }

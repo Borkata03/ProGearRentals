@@ -25,6 +25,12 @@ namespace ProGearRentals.Core.Services
             await repository.SaveChangesAsync();
         }
 
+        public async Task DeleteAgentAsync(int? userId)
+        {
+            await repository.DeleteAsync<Agent>(userId);
+            await repository.SaveChangesAsync();
+        }
+
         public async Task<bool> ExistByIdAsync(string userId)
         {
             return await repository.AllReadOnly<Agent>()

@@ -43,7 +43,7 @@ namespace ProGearRentals.Infrastructure.Data.Models
         public Equipment Equipment { get; set; } = null!;
 
         [ForeignKey(nameof(ReviewerId))]
-        public IdentityUser Reviewer { get; set; } = null!;
+        public ApplicationUser Reviewer { get; set; } = null!;
 
 
 

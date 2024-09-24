@@ -5,6 +5,7 @@ using ProGearRentals.Core.Services;
 using ProGearRentals.Core.Services.Equipments;
 using ProGearRentals.Infrastructure.Data;
 using ProGearRentals.Infrastructure.Data.Common;
+using ProGearRentals.Infrastructure.Data.Models;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -32,14 +33,15 @@ namespace Microsoft.Extensions.DependencyInjection
 
         public static IServiceCollection AddApplicationIdentity(this IServiceCollection services,IConfiguration config)
         {
-           services.AddDefaultIdentity<IdentityUser>(options =>
+           services.AddDefaultIdentity<ApplicationUser>(options =>
            {
                options.SignIn.RequireConfirmedAccount = false;
                options.Password.RequireNonAlphanumeric = false;
                options.Password.RequireDigit = false;
                options.Password.RequireLowercase = false;
                options.Password.RequireUppercase = false;
-           }).AddEntityFrameworkStores<ProGearRentalsDbContext>();
+           })
+                .AddEntityFrameworkStores<ProGearRentalsDbContext>();
                
 
            

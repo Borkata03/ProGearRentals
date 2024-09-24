@@ -1,16 +1,17 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using ProGearRentals.Infrastructure.Data.Models;
 
 namespace ProGearRentals.Infrastructure.Data.SeedDb
 {
-    public class UserConfiguration : IEntityTypeConfiguration<IdentityUser>
+    public class UserConfiguration : IEntityTypeConfiguration<ApplicationUser>
     {
-        public void Configure(EntityTypeBuilder<IdentityUser> builder)
+        public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
             var data = new SeedData();
 
-            builder.HasData(new IdentityUser[] {data.AgentUser,data.GuestUser});
+            builder.HasData(new ApplicationUser[] {data.AgentUser,data.GuestUser});
         }
     }
 }

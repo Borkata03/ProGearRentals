@@ -6,7 +6,7 @@ using System.Reflection.Emit;
 
 namespace ProGearRentals.Infrastructure.Data
 {
-    public class ProGearRentalsDbContext : IdentityDbContext
+    public class ProGearRentalsDbContext : IdentityDbContext<ApplicationUser>
     {
         public ProGearRentalsDbContext(DbContextOptions<ProGearRentalsDbContext> options)
             : base(options)

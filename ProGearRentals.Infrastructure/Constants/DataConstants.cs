@@ -28,6 +28,10 @@ namespace ProGearRentals.Infrastructure.Constants
 
         public const int AgentPhoneNumberMinLength = 7;
 
-  
+        public const int UserFirstNameMaxLength = 15;
+
+        public const int UserLastNameMaxLength = 15;
+
+
     }
 }

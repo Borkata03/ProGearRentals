@@ -37,7 +37,7 @@ namespace ProGearRentals.Infrastructure.Data.Models
         public Equipment Equipment { get; set; } = null!;
 
         [ForeignKey(nameof(UserId))]
-        public IdentityUser User { get; set; } = null!;
+        public ApplicationUser User { get; set; } = null!;
     }
 }
 

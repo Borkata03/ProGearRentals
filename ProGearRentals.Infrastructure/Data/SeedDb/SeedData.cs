@@ -14,7 +14,11 @@ namespace ProGearRentals.Infrastructure.Data.SeedDb
         
        public ApplicationUser GuestUser { get; set; }
 
-       public Agent Agent { get; set; }
+        public ApplicationUser AdminUser { get; set; }
+
+        public Agent Agent { get; set; }
+
+        public Agent AdminAgent { get; set; }
 
        public Category MountainEquipment { get; set; }
 
@@ -60,7 +64,9 @@ namespace ProGearRentals.Infrastructure.Data.SeedDb
                 UserName = "agent@mail.com",
                 NormalizedUserName = "agent@mail.com",
                 Email = "agent@mail.com",
-                NormalizedEmail = "agent@mail.com"
+                NormalizedEmail = "agent@mail.com",
+                FirstName = "Agent",
+                LastName = "Agentski"
             };
 
             AgentUser.PasswordHash =
@@ -72,11 +78,29 @@ namespace ProGearRentals.Infrastructure.Data.SeedDb
                 UserName = "guest@mail.com",
                 NormalizedUserName = "guest@mail.com",
                 Email = "guest@mail.com",
-                NormalizedEmail = "guest@mail.com"
+                NormalizedEmail = "guest@mail.com",
+                FirstName = "Guest",
+                LastName = "Guestski "
+
             };
 
             GuestUser.PasswordHash =
             hasher.HashPassword(AgentUser, "guest123");
+
+
+            AdminUser = new ApplicationUser()
+            {
+                Id = "5fd5055a-69af-416a-acc6-d01823105d81",
+                UserName = "admin@mail.com",
+                NormalizedUserName = "ADMIN@MAIL.COM",
+                Email = "admin@mail.com",
+                NormalizedEmail = "ADMIN@MAIL.COM",
+                FirstName = "Top",
+                LastName = "Admin"
+
+            };
+            GuestUser.PasswordHash =
+           hasher.HashPassword(AdminUser, "admin123");
         }
 
         private void SeedAgent()
@@ -87,6 +111,14 @@ namespace ProGearRentals.Infrastructure.Data.SeedDb
                 PhoneNumber = "+359888888888",
                 UserId = AgentUser.Id
             };
+
+            AdminAgent = new Agent()
+            {
+                Id = 4,
+                PhoneNumber = "+359888888833",
+                UserId = AdminUser.Id
+            };
+
         }
 
         private void SeedCategories()

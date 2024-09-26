@@ -56,6 +56,7 @@ app.UseEndpoints(endpoints =>
 
 });
 
+await app.CreateAdminRoleAsync();
 
 app.Run();
 

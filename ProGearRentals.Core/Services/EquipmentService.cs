@@ -158,6 +158,7 @@ namespace ProGearRentals.Core.Services.Equipments
                      Id=e.Id,
                      Agent = new Models.Agent.AgentServiceModel()
                      {
+                         FullName = $"{e.Agent.User.FirstName} {e.Agent.User.LastName}",
                          Email = e.Agent.User.Email,
                          PhoneNumber = e.Agent.PhoneNumber
                      },

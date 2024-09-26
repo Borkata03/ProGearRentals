@@ -80,10 +80,6 @@ namespace ProGearRentals.Controllers
            
             var model = await equipmentService.EqipmentDetailsByIdAsync(id);
 
-           /* if (info != model.GetInformation())
-            {
-                return BadRequest();
-            }*/
 
             return View(model);
         }
@@ -131,7 +127,8 @@ namespace ProGearRentals.Controllers
                 return BadRequest();
             }
 
-            if (await equipmentService.HasAgentWithIdAsync(id,User.Id()) == false)
+            if (await equipmentService.HasAgentWithIdAsync(id,User.Id()) == false
+                && User.IsAdmin() ==  false)
             {
                 return Unauthorized();
             }
@@ -150,7 +147,8 @@ namespace ProGearRentals.Controllers
                 return BadRequest();
             }
 
-            if (await equipmentService.HasAgentWithIdAsync(id, User.Id()) == false)
+            if (await equipmentService.HasAgentWithIdAsync(id, User.Id()) == false
+                  && User.IsAdmin() == false )
             {
                 return Unauthorized();
             }
@@ -180,7 +178,8 @@ namespace ProGearRentals.Controllers
                 return BadRequest();
             }
 
-            if (await equipmentService.HasAgentWithIdAsync(id,User.Id()) == false)
+            if (await equipmentService.HasAgentWithIdAsync(id,User.Id()) == false
+                  && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -207,7 +206,7 @@ namespace ProGearRentals.Controllers
                 return BadRequest();
             }
 
-            if (await equipmentService.HasAgentWithIdAsync(id, User.Id()) == false)
+            if (await equipmentService.HasAgentWithIdAsync(id, User.Id()) == false && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -226,8 +225,8 @@ namespace ProGearRentals.Controllers
                 return BadRequest();
             }
 
-            if (await agentService.ExistByIdAsync(User.Id())
-              )
+            if (await agentService.ExistByIdAsync(User.Id()) && User.IsAdmin() == false)
+              
             {
                 return Unauthorized();
             }

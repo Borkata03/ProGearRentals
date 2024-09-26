@@ -17,7 +17,7 @@
                asp-route-information="@Model.GetInformation()" class ="btn btn-dark">Details</a>
             @if (this.User.Identity.IsAuthenticated)
             {
-                @if (await equipmentservice.HasAgentWithIdAsync(Model.Id,User.Id()))
+                @if (await equipmentservice.HasAgentWithIdAsync(Model.Id, User.Id()) || User.IsAdmin())
                 {
                     <a asp-controller="Equipment" asp-action="Edit" asp-route-id="@Model.Id"
                class="btn btn-dark">Edit</a>
@@ -26,7 +26,7 @@
                 }
               
                 <p></p>
-                @if (!Model.IsRented && (await agentservice.ExistByIdAsync(User.Id())) == false)
+                @if (!Model.IsRented && ((await agentservice.ExistByIdAsync(User.Id())) == false || User.IsAdmin()))
                 {
                     
                         <form class="input-group-sm" asp-controller="Equipment"

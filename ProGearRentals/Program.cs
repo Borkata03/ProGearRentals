@@ -51,6 +51,11 @@ app.UseEndpoints(endpoints =>
         pattern: "/Equipment/Details/{id}/{info}",
         defaults: new {Controller = "Equipment",Action = "Details"}
     );
+
+    endpoints.MapControllerRoute(
+              name: "areas",
+              pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+            );
     endpoints.MapDefaultControllerRoute();
     endpoints.MapRazorPages();
 

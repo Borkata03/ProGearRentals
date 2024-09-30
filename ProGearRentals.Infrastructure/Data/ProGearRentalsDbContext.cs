@@ -21,6 +21,7 @@ namespace ProGearRentals.Infrastructure.Data
             builder.ApplyConfiguration(new ReviewConfiguration());
             builder.ApplyConfiguration(new ReservationConfiguration());
             builder.ApplyConfiguration(new EquipmentConfiguration());
+            builder.ApplyConfiguration(new UserClaimConfiguration());
 
             base.OnModelCreating(builder);
         }

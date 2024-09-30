@@ -8,8 +8,8 @@
     string username = string.Empty;
     if (SignInManager.IsSignedIn(User))
     {
-        var user = await UserManager.FindByIdAsync(User.Id());
-        username = $"{user.FirstName} {user.LastName}";
+
+        username = User.FindFirstValue(ProGearRentals.Infrastructure.Constants.CustomClaims.UserFullNameClaim) ?? string.Empty;
     }
 }
 

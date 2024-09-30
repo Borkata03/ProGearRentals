@@ -5,16 +5,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ProGearRentals.Infrastructure.Constants.CustomClaims;
 
 namespace ProGearRentals.Infrastructure.Data.SeedDb
 {
     internal class SeedData
     {
        public ApplicationUser AgentUser { get; set; } 
+
+        public IdentityUserClaim<string> AgentUserClaim { get; set; }
         
        public ApplicationUser GuestUser { get; set; }
 
+        public IdentityUserClaim<string> GuestUserClaim { get; set; }
+
+
         public ApplicationUser AdminUser { get; set; }
+
+        public IdentityUserClaim<string> AdminUserClaim { get; set; }
 
         public Agent Agent { get; set; }
 
@@ -69,6 +77,16 @@ namespace ProGearRentals.Infrastructure.Data.SeedDb
                 LastName = "Agentski"
             };
 
+            AgentUserClaim = new IdentityUserClaim<string>()
+            {
+                Id = 1,
+                ClaimType = UserFullNameClaim,
+                ClaimValue = "Agent Agentski",
+                UserId = "dea12856-c198-4129-b3f3-b893d8395082"
+
+            };
+
+
             AgentUser.PasswordHash =
                  hasher.HashPassword(AgentUser, "agent123");
 
@@ -81,6 +99,15 @@ namespace ProGearRentals.Infrastructure.Data.SeedDb
                 NormalizedEmail = "guest@mail.com",
                 FirstName = "Guest",
                 LastName = "Guestski "
+
+            };
+            GuestUserClaim = new IdentityUserClaim<string>()
+            {
+                Id = 2,
+                ClaimType = UserFullNameClaim,
+                ClaimValue = "Guest Guestski",
+                UserId = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
+                
 
             };
 
@@ -99,8 +126,21 @@ namespace ProGearRentals.Infrastructure.Data.SeedDb
                 LastName = "Admin"
 
             };
+            AdminUserClaim = new IdentityUserClaim<string>()
+            {
+                Id = 3,
+                ClaimType = UserFullNameClaim,
+                UserId = "5fd5055a-69af-416a-acc6-d01823105d81",
+                ClaimValue = "Top Admin"
+           
+
+
+            };
             AdminUser.PasswordHash =
            hasher.HashPassword(AdminUser, "admin123");
+
+
+             
         }
 
         private void SeedAgent()

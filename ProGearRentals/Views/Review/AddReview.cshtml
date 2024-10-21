@@ -1,0 +1,31 @@
+﻿@model AddReviewFormViewModel
+
+<form asp-action="Add" asp-controller="Review" method="post">
+    <div class="form-group">
+        <label for="Rating">Rating</label>
+        <select asp-for="Rating" class="form-control" id="Rating" required>
+            <option value="" disabled selected>Select a rating</option>
+            @for (int i = 1; i <= 5; i++)
+            {
+                <option value="@i">@i Star@(i > 1 ? "s" : "")</option>
+            }
+        </select>
+        <span asp-validation-for="Rating" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="Comment">Comment</label>
+        <textarea asp-for="Comment" class="form-control" id="Comment" rows="3" required></textarea>
+        <span asp-validation-for="Comment" class="text-danger"></span>
+    </div>
+
+    <input type="hidden" asp-for="EquipmentId" value="@Model.EquipmentId" />
+
+    <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary w-50">Submit Review</button>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

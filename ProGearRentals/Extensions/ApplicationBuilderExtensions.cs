@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using ProGearRentals.Infrastructure.Data.Models;
-using static ProGearRentals.Core.Constants.RoleConstants;
+using static ProGearRentals.Core.Constants.AdministratorConstants;
 
 namespace Microsoft.AspNetCore.Builder
 {

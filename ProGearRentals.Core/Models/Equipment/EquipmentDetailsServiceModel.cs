@@ -11,7 +11,6 @@ namespace ProGearRentals.Core.Models.Equipment
     {
         public string Description { get; set; } = null!;
 
-
         public string Category { get; set; } = null!;
 
         public AgentServiceModel Agent { get; set; } = null!;

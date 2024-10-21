@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using ProGearRentals.Infrastructure.Data.Models;
-using static ProGearRentals.Core.Constants.RoleConstants;
+using static ProGearRentals.Core.Constants.AdministratorConstants;
 
 namespace ProGearRentals.Areas.Identity.Pages.Account
 {

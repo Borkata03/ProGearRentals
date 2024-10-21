@@ -1,4 +1,4 @@
-﻿using static ProGearRentals.Core.Constants.RoleConstants;
+﻿using static ProGearRentals.Core.Constants.AdministratorConstants;
 namespace System.Security.Claims
 {
     public static class ClaimPrincipalExtensions

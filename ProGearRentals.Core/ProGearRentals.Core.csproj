@@ -10,8 +10,4 @@
     <ProjectReference Include="..\ProGearRentals.Infrastructure\ProGearRentals.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>

@@ -38,6 +38,10 @@
                 }
                 else if (await equipmentservice.IsRentedByUserWithIdAsync(Model.Id, User.Id()))
                 {
+
+                    <form class="input-group-sm" asp-controller="Review" asp-action="AddReview" asp-route-id="@Model.Id" method="get">
+                        <input class="btn btn-success" type="submit" value="Add Review" />
+                    </form>
                    
                         <form asp-controller="Equipment" asp-action="Leave"
                          asp-route-id="@Model.Id" method="post">

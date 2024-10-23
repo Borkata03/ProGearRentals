@@ -1,0 +1,48 @@
+﻿@model IEnumerable<AllReviewQueryModel>
+
+<h2 class="text-center mb-4">All Reviews for @Model.FirstOrDefault()?.Name</h2>
+
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Rating</th>
+            <th>Comment</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (var review in Model)
+            {
+                <tr>
+                    <td>
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <span class="star @(i <= review.Rating ? "filled" : "")">★</span>
+                        }
+                    </td>
+                    <td>@review.Comment</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="2" class="text-center">No reviews found for this equipment.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    .star {
+        color: lightgray;
+        font-size: 1.5em;
+    }
+
+        .star.filled {
+            color: gold;
+        }
+</style>

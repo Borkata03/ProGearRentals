@@ -23,11 +23,10 @@ namespace ProGearRentals.Core.Services
         public async Task CreateReviewAsync(AddReviewFormViewModel model,string userId)
         {
             var review = new Review()
-            {
-                Id = model.Id,  
+            { 
                 Comment = model.Comment,
                 Rating = model.Rating,
-                EquipmentId = model.EquipmentId,
+                EquipmentId = model.Id,
                 ReviewerId = userId,  
             };
 
@@ -35,13 +34,25 @@ namespace ProGearRentals.Core.Services
             await repository.SaveChangesAsync();
         }
 
-        public async Task<AddReviewFormViewModel?> GetModelForReviewByIdAsync(int id)
+        public async Task<IEnumerable<AllReviewQueryModel>> GetAllReviewsAsync(int id)
+        {
+            return await repository.AllReadOnly<Review>()
+                .Where(r => r.EquipmentId == id)
+                .Select(r => new AllReviewQueryModel
+                {
+                    Id = r.Id,
+                    Comment = r.Comment,    
+                    Rating = r.Rating,  
+                    Name = r.Equipment.Title,
+                })
+                .ToListAsync();
+        }
+
+        public async Task<AddReviewFormViewModel?> GetModelForReviewByIdAsync()
         {
            return await repository.AllReadOnly<Review>()
-                .Where(e => e.Id == id)
                 .Select(e => new AddReviewFormViewModel
                 {
-                    Id = e.Id,
                     Comment = e.Comment,
                     Rating = e.Rating,  
                     EquipmentId = e.EquipmentId,   

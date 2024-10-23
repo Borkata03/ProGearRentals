@@ -1,7 +1,9 @@
 ﻿@model AddReviewFormViewModel
 
+<h2 class="text-center mb-4">Add Review</h2>
+
 <form asp-action="Add" asp-controller="Review" method="post">
-    <div class="form-group">
+    <div class="form-group mb-4">
         <label for="Rating">Rating</label>
         <select asp-for="Rating" class="form-control" id="Rating" required>
             <option value="" disabled selected>Select a rating</option>
@@ -13,13 +15,13 @@
         <span asp-validation-for="Rating" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
+    <div class="form-group mb-4">
         <label for="Comment">Comment</label>
         <textarea asp-for="Comment" class="form-control" id="Comment" rows="3" required></textarea>
         <span asp-validation-for="Comment" class="text-danger"></span>
     </div>
 
-    <input type="hidden" asp-for="EquipmentId" value="@Model.EquipmentId" />
+    <input type="hidden" asp-for="EquipmentId" />
 
     <div class="form-group text-center">
         <button type="submit" class="btn btn-primary w-50">Submit Review</button>

@@ -20,7 +20,7 @@ namespace ProGearRentals.Controllers
         }
         [HttpGet]
         [NotAnAgent]
-        public async Task<IActionResult> AddReview(int id)
+        public async Task<IActionResult> Add(int id)
         {
             if (await agentService.ExistByIdAsync(User.Id()))
             {
@@ -32,7 +32,7 @@ namespace ProGearRentals.Controllers
                 return BadRequest();
             }
 
-            var model  = await reviewService.GetModelForReviewByIdAsync(id);
+            var model  = await reviewService.GetModelForReviewByIdAsync();
 
             return View(model);
         }
@@ -46,7 +46,7 @@ namespace ProGearRentals.Controllers
                 return BadRequest();
             }
 
-            if (!await equipmentService.IsRentedByUserWithIdAsync(model.EquipmentId,User.Id()))
+            if (!await equipmentService.IsRentedByUserWithIdAsync(model.Id,User.Id()))
             {
                 return BadRequest();
             }
@@ -54,6 +54,31 @@ namespace ProGearRentals.Controllers
             await reviewService.CreateReviewAsync(model,User.Id());
 
             return RedirectToAction(nameof(EquipmentController.Mine), "Equipment");
+        }
+
+        [HttpGet]
+        [NotAnAgent]
+        public async Task<IActionResult> All(int id)
+        {
+            if (await agentService.ExistByIdAsync(User.Id()))
+            {
+                return BadRequest();
+            }
+
+            if (await equipmentService.IsRentedByUserWithIdAsync(id,User.Id()))
+            {
+                return BadRequest();
+            }
+
+            var model = await reviewService.GetAllReviewsAsync(id);
+
+            if (model == null)
+            {
+                return BadRequest();
+            }
+
+            return View(model);
+
         }
     }
 }

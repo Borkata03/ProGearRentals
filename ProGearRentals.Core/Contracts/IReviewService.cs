@@ -10,8 +10,10 @@ namespace ProGearRentals.Core.Contracts
 {
     public interface IReviewService
     {
-         Task<AddReviewFormViewModel?> GetModelForReviewByIdAsync(int id);
+         Task<AddReviewFormViewModel?> GetModelForReviewByIdAsync();
 
         Task CreateReviewAsync(AddReviewFormViewModel model,string userId);
+
+        Task<IEnumerable<AllReviewQueryModel>> GetAllReviewsAsync(int id);
     }
 }

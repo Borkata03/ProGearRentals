@@ -4,12 +4,14 @@
 
 	ViewData["Title"] = "My Equipments";
 }
-<h2 class="text-center">@ViewData["Title"]</h2>
+<h2 class="text-center" style="font-family: 'Lobster', cursive;">@ViewData["Title"]</h2>
 
 
-@if(Model.Any() == false){
-	<h3 class="text-center">You have no equipments yet</h3>
+@if (Model.Any() == false)
+{
+	<h3 class="text-center" style="font-family: 'Lobster', cursive;">You have no equipments yet</h3>
 }
+
 <div class= "row">
 
 	@foreach (var item in Model)

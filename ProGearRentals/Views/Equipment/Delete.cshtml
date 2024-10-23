@@ -4,22 +4,32 @@
     ViewBag.Title = "Delete Equipment";
 }
 
-<h2 class="text-center">@ViewBag.Title</h2>
+<h2 class="text-center" style="font-family: 'Lobster', cursive; color: white;">@ViewBag.Title</h2>
 <hr />
 
-<form asp-action="Delete">
+<form asp-action="Delete" style="background-color: #555; padding: 20px; border-radius: 10px; text-align: center;">
     <div class="row">
         <div class="col-md-4">
-            <img class="card-img-top" src="@Model.ImageUrl" alt="Equipment Image">
+            <img class="card-img-top" style="width: 100%; border-radius: 10px;" src="@Model.ImageUrl" alt="Equipment Image">
         </div>
         <div class="col-md-8">
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" disabled="disabled" />
+                <label asp-for="Title" class="control-label" style="font-family: 'Lobster', cursive; color: white;"></label>
+                <input asp-for="Title" class="form-control" disabled="disabled" style="font-family: 'Lobster', cursive;" />
             </div>
-            <div class="form-group">
-                <input type="submit" value="Delete" class="btn btn-primary" />
+            <div class="form-group text-center" style="margin-top: 20px;">
+              
+                <input type="submit" value="Delete" class="btn btn-light" style="font-family: 'Lobster', cursive;" />
             </div>
         </div>
     </div>
 </form>
+<style>
+    .btn-light {
+        transition: all 0.3s ease;
+    }
+
+        .btn-light:hover {
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.6);
+        }
+</style>

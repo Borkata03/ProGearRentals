@@ -108,24 +108,6 @@ namespace ProGearRentals.Core.Services.Equipments
             return equipment.Id;
         }
 
-
-
-        public async Task<IEnumerable<EquipmentIndexModel>> LastThreeEquipmentsAsync()
-        {
-            return await repository
-                .AllReadOnly<Infrastructure.Data.Models.Equipment>()
-                .OrderByDescending(e => e.Id)
-                .Take(3)
-                .Select(e => new EquipmentIndexModel()
-                {
-                    Id = e.Id,
-                    Imageurl = e.ImageUrl,
-                    Title = e.Title,
-                    Description = e.Description,
-
-                }).ToListAsync();
-        }
-
         public async Task<IEnumerable<EquipmentServiceModel>> AllEquipmentsByAgentId(int agentId)
         {
             return await repository.AllReadOnly<Equipment>()

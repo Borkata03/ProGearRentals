@@ -3,55 +3,64 @@
 @inject IEquipmentService equipmentservice
 
 <div class="col-md-4">
-    <div class="card mb-3">
-        <img class="card-img-top" src="@Model.ImageUrl" alt="Equipment Image">
+    <div class="card mb-3" style="background-color: #555; border-radius: 10px;">
+        <img class="card-img-top" src="@Model.ImageUrl" alt="Equipment Image" style="border-radius: 10px 10px 0 0;">
         <div class="card-body text-center">
-            <h4>@Model.Title</h4>
-            <h6>
+            <h4 style="font-family: 'Lobster', cursive; color: white;">@Model.Title</h4>
+            <h6 style="color: white; font-family: 'Lobster', cursive;">
                 Price Per Month:
                 <b>@String.Format("{0:f2}", Model.PricePerMonth) BGN</b>
             </h6>
-            <h6>(@(Model.IsRented ? "Rented" : "Not Rented"))</h6>
+            <h6 style="color: white; font-family: 'Lobster', cursive;">(@(Model.IsRented ? "Rented" : "Not Rented"))</h6>
             <br />
             <a asp-controller="Equipment" asp-action="Details" asp-route-id="@Model.Id"
-               asp-route-information="@Model.GetInformation()" class="btn btn-dark mb-2">Details</a>
+               asp-route-information="@Model.GetInformation()" class="btn btn-light mb-2" style="font-family: 'Lobster', cursive; background-color:white;" >Details</a>
             @if (this.User.Identity.IsAuthenticated)
             {
                 <div class="d-flex justify-content-center mb-2">
                     @if (await equipmentservice.HasAgentWithIdAsync(Model.Id, User.Id()) || User.IsAdmin())
                     {
-                        <a asp-controller="Equipment" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-dark me-2">Edit</a>
-                        <a asp-controller="Equipment" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-dark">Delete</a>
+                        <a asp-controller="Equipment" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-light me-2" style="font-family: 'Lobster', cursive; background-color: white;">Edit</a>
+                        <a asp-controller="Equipment" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-light me-2" style="font-family: 'Lobster', cursive; background-color: white;">Delete</a>
                     }
                 </div>
 
-                <p></p>
-
                 @if (!Model.IsRented && !await agentservice.ExistByIdAsync(User.Id()))
                 {
-                    <form class="input-group-sm d-inline" asp-controller="Equipment" asp-action="Rent" asp-route-id="@Model.Id" method="post">
-                        <input class="btn btn-dark me-2" type="submit" value="Rent" />
+                    <form class="d-inline me-2" asp-controller="Equipment" asp-action="Rent" asp-route-id="@Model.Id" method="post">
+                        <input class="btn btn-light mb-2" style="font-family: 'Lobster', cursive; " type="submit" value="Rent" />
                     </form>
                 }
 
-                else if (await equipmentservice.IsRentedByUserWithIdAsync(Model.Id, User.Id()))
+                @if (await equipmentservice.IsRentedByUserWithIdAsync(Model.Id, User.Id()))
                 {
-                    <form class="input-group-sm d-inline me-2" asp-controller="Review" asp-action="Add" asp-route-id="@Model.Id" method="get">
-                        <input class="btn btn-dark" type="submit" value="Add Review" />
+                    <form class="d-inline me-2" asp-controller="Review" asp-action="Add" asp-route-id="@Model.Id" method="get">
+                        <input class="btn btn-light" style="font-family: 'Lobster', cursive; background-color: white; " type="submit" value="Add Review" />
                     </form>
 
                     <form class="d-inline" asp-controller="Equipment" asp-action="Leave" asp-route-id="@Model.Id" method="post">
-                        <input class="btn btn-dark" type="submit" value="Leave" />
+                        <input class="btn btn-light" style="font-family: 'Lobster', cursive; background-color: white; " type="submit" value="Leave" />
                     </form>
                 }
 
-                if (!await agentservice.ExistByIdAsync(User.Id()) && !await equipmentservice.IsRentedByUserWithIdAsync(Model.Id, User.Id()))
+                @if (!await agentservice.ExistByIdAsync(User.Id()) && !await equipmentservice.IsRentedByUserWithIdAsync(Model.Id, User.Id()))
                 {
-                    <form class="input-group-sm d-inline" asp-controller="Review" asp-action="All" asp-route-id="@Model.Id" method="get">
-                        <button type="submit" class="btn btn-dark mb-2">View All Reviews</button>
+                    <form class="d-inline" asp-controller="Review" asp-action="All" asp-route-id="@Model.Id" method="get">
+                        <button type="submit" class="btn btn-light mb-2" style="font-family: 'Lobster', cursive; background-color: white;">View All Reviews</button>
                     </form>
                 }
+
             }
         </div>
     </div>
 </div>
+<style>
+    .btn-light {
+        transition: all 0.3s ease;
+    }
+
+        .btn-light:hover {
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.6); 
+        }
+</style>
+

@@ -1,40 +1,56 @@
-﻿    @model EquipmentFormModel
+﻿@model EquipmentFormModel
 
-    <div class="row">
-        <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
-            <form method="post">
-                <div class="form-group">
-                    <label asp-for="Title"></label>
-                    <input asp-for="Title" class="form-control" placeholder="Title...">
-                    <span asp-validation-for="Title" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Description"></label>
-                    <textarea asp-for="Description" rows="4" class="form-control" placeholder="The Equipment..."></textarea>
-                    <span asp-validation-for="Description" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="ImageUrl"></label>
-                    <input asp-for="ImageUrl" class="form-control" placeholder="Your fine URL here...">
-                    <span asp-validation-for="ImageUrl" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="PricePerMonth"></label>
-                    <input asp-for="PricePerMonth" class="form-control">
-                    <span asp-validation-for="PricePerMonth" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="CategoryId"></label>
-                    <select asp-for="CategoryId" asp-items="@(new SelectList(Model.Categories, "Id", "Name"))" class="form-control">
-                        <option value="">Select Category</option>
-                    </select>
-                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+<div class="d-flex justify-content-center align-items-start vh-60 mt-1">
+    <div class="col-md-4">
+        <form method="post" style="background-color: #555; padding: 20px; border-radius: 10px; text-align: center;">
+            
+            <hr />
 
-                </div>
+            <div class="form-group mb-4">
+                <label asp-for="Title" style="font-family: 'Lobster', cursive; color: white;"></label>
+                <input asp-for="Title" class="form-control" placeholder="Title..." required />
+                <span asp-validation-for="Title" class="small text-danger"></span>
+            </div>
 
-                <div class="text-center">
-                    <input class="btn btn-primary mt-3" type="submit" value="Save" />
-                </div>
-            </form>
-        </div>
+            <div class="form-group mb-4">
+                <label asp-for="Description" style="font-family: 'Lobster', cursive; color: white;"></label>
+                <textarea asp-for="Description" rows="4" class="form-control" placeholder="The Equipment..." required></textarea>
+                <span asp-validation-for="Description" class="small text-danger"></span>
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="ImageUrl" style="font-family: 'Lobster', cursive; color: white;"></label>
+                <input asp-for="ImageUrl" class="form-control" placeholder="Your fine URL here..." required />
+                <span asp-validation-for="ImageUrl" class="small text-danger"></span>
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="PricePerMonth" style="font-family: 'Lobster', cursive; color: white;"></label>
+                <input asp-for="PricePerMonth" class="form-control" required />
+                <span asp-validation-for="PricePerMonth" class="small text-danger"></span>
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="CategoryId" style="font-family: 'Lobster', cursive; color: white;"></label>
+                <select asp-for="CategoryId" asp-items="@(new SelectList(Model.Categories, "Id", "Name"))" class="form-control" required>
+                    <option value="">Select Category</option>
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-light w-100" style="font-family: 'Lobster', cursive;">Save</button>
+            </div>
+        </form>
     </div>
+</div>
+
+<style>
+    .btn-light {
+        transition: all 0.3s ease;
+    }
+
+    .btn-light:hover {
+        box-shadow: 0 4px 8px rgba(255, 255, 255, 0.6);
+    }
+</style>

@@ -1,75 +1,37 @@
-﻿@model IEnumerable<EquipmentIndexModel>
-@inject IAgentService agentservice
-@inject IEquipmentService equipmentservice
+﻿<div class="carousel-section" style="padding: 40px 0;">
+    <h1 class="display-6 text-center py-3" style="color: white; font-family: 'Lobster', cursive; background-color: #444; border-radius: 15px;">
+        Welcome to the best place for renting equipment!
+    </h1>
 
-
-
-@{
-    ViewData["Title"] = "Home Page";
-    var equipment = Model.ToList();
-}
-
-@if (!equipment.Any())
-{
-    <div class="mt-4 p-5 bg-light text-center">
-        <h1 class="display-4">Welcome to the best place for renting equipment!</h1>
-        <p class="lead">
-            There are no equipments in the system currently available.
-            Why don't you add one?
-        </p>
-        <hr class="my-4">
-        @if (User?.Identity?.IsAuthenticated ?? false && await agentservice.ExistByIdAsync(User.Id()))
-        {
-         
-            <a asp-controller="Equipment" asp-action="Add" class="btn btn-primary btn-lg">Add Equipment</a>
-        }
-    </div>
-}
-
-
-<div class="mb-6"></div>
-
-@if (equipment.Any())
-{
-    <h1 class="display-6" style=" text-align: center;">Welcome to the best place for renting equipment!</h1>
-    <div id="carouselExampleControlsNoTouching" class="carousel slide mt-5" data-bs-touch="false">
+    <div id="carouselExampleControls" class="carousel slide mt-5" data-bs-ride="carousel">
         <div class="carousel-inner">
-            @for (int i = 0; i < equipment.Count(); i++)
-            {
-                var currentEquipment = equipment[i];
-                <div class="carousel-item @(i == 0 ? "active" : string.Empty)">
-                    <img class="d-block w-50 mx-auto" style="height:400px;"
-                 src="@currentEquipment.Imageurl" alt="@currentEquipment.Title">
-
-                    <div class="text-center mt-5">
-                        <h5>
-                            <a class="btn btn-dark style="border-radius: 50%;" asp-controller="Equipment" asp-action="Details" asp-route-id="@currentEquipment.Id" asp-route-information="@currentEquipment.GetInformation()">
-                                @currentEquipment.Title
-                            </a>
-                        </h5>
-                    </div>
-                </div>
-            }
+            <div class="carousel-item active">
+                <img src="https://th.bing.com/th/id/R.ca5ad2f4189cfff3f2c30e57a085bac6?rik=9BuWx4kZIGNi9Q&pid=ImgRaw&r=0" class="d-block w-75 mx-auto rounded" style="height: 400px; object-fit: cover; border-radius: 30%; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);" alt="First Image">
+            </div>
+            <div class="carousel-item">
+                <img src="https://img.fotocommunity.com/fotopirsch-09b0f77e-59e1-4699-b602-c09c0f86354b.jpg?height=1080" class="d-block w-75 mx-auto rounded" style="height: 400px; object-fit: cover; border-radius: 30%; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);" alt="Second Image">
+            </div>
+            <div class="carousel-item">
+                <img src="https://wallpaperaccess.com/full/2010872.jpg" class="d-block w-75 mx-auto rounded" style="height: 400px; object-fit: cover; border-radius: 30%; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);" alt="Third Image">
+            </div>
         </div>
 
-
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true" style="border-radius: 50%;"></span>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true" style="border-radius: 50%;"></span>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
     </div>
+</div>
 
-    <style>
-        .carousel-control-prev-icon,
-        .carousel-control-next-icon {
-            background-color: black;
-        }
-    </style>
-
-
-}
-
+<style>
+    
+    
+    .carousel-control-prev,
+    .carousel-control-next {
+        filter: invert(1);
+    }
+</style>

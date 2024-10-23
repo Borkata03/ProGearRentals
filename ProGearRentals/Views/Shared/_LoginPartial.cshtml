@@ -8,45 +8,52 @@
     string username = string.Empty;
     if (SignInManager.IsSignedIn(User))
     {
-
         username = User.FindFirstValue(ProGearRentals.Infrastructure.Constants.CustomClaims.UserFullNameClaim) ?? string.Empty;
     }
 }
 
+<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+
+<style>
+    .navbar-nav .nav-link {
+        font-family: 'Lobster', cursive; 
+    }
+   
+</style>
+
 <ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-        @if(await agentservice.ExistByIdAsync(User.Id()) == false)
+    @if (SignInManager.IsSignedIn(User))
+    {
+        @if (await agentservice.ExistByIdAsync(User.Id()) == false)
         {
-           <li class="nav-item">
-            <a class="nav-link text-white" asp-area="" asp-controller="Agent" asp-action="Become">Become Agent</a>
-           </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" asp-area="" asp-controller="Agent" asp-action="Become">Become Agent</a>
+            </li>
         }
         else
         {
             <form asp-area="" asp-controller="Agent" asp-action="BecomeUser" method="post">
                 <button type="submit" class="nav-link text-white btn btn-link">Become User</button>
             </form>
-
         }
-        
+
         <li class="nav-item">
-            <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title ="Manage">Hello @username!   </a>
+            <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @username!</a>
         </li>
-    
-    <li class="nav-item">
+
+        <li class="nav-item">
             <form class="form-inline text-white" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-white">Logout</button>
-        </form> 
-    </li>
-}
-else
-{
-    <li class="nav-item">
+                <button type="submit" class="nav-link btn btn-link text-white">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
             <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
+        </li>
+        <li class="nav-item">
             <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
-}
+        </li>
+    }
 </ul>

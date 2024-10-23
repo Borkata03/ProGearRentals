@@ -6,60 +6,88 @@
     ViewBag.Title = "Equipment Details";
 }
 
-<h2 class="text-center">@ViewBag.Title</h2>
+<h2 class="text-center" style="font-family: 'Lobster', cursive; color: black">@ViewBag.Title</h2>
 <hr />
 
 <div class="container" style="display:inline">
     <div class="row">
-        <div class="col-4">
-            <img class="card-img-top" style="width: 20rem;"
-                 src="@Model.ImageUrl" alt="Equipment Image">
-        </div>
-        <div class="card col-8 border-0">
-            <p style="font-size:25px;"><u>@Model.Title</u></p>
-            
-            <p>
-                Price Per Month:
-                <b>@String.Format("{0:f2}", Model.PricePerMonth) BGN</b>
-            </p>
-            <p>@Model.Description</p>
-            <p>Category: <b>@Model.Category</b></p>
-            <p><i>(@(Model.IsRented ? "Rented" : "Not Rented"))</i></p>
-            <div class="form-inline">
-                @if (this.User.Identity.IsAuthenticated)
-                {
-                    @if (await equipmentservice.HasAgentWithIdAsync(Model.Id, User.Id()) || User.IsAdmin())
-                    {
-                         <a class="btn btn-warning" asp-controller="Equipment" asp-action="Edit"
-                   asp-route-id="@Model.Id">Edit</a>
-                    <a class="ml-2 btn btn-danger" asp-controller="Equipment" asp-action="Delete"
-                   asp-route-id="@Model.Id">Delete</a>
-                    }
-                   
-                    @if (!Model.IsRented && (await agentservice.ExistByIdAsync(User.Id())) == false || User.IsAdmin())
-                    {
-                        <form class="ml-2" asp-controller="Equipment"
-                      asp-action="Rent" asp-route-id="@Model.Id" method="post">
-                            <input class="btn btn-primary" type="submit" value="Rent" />
-                        </form>
-                    }
-                    else if (await equipmentservice.IsRentedByUserWithIdAsync(Model.Id, User.Id()))
-                    {
-                        <form class="ml-2" asp-controller="Equipment" asp-action="Leave"
-                      asp-route-id="@Model.Id" method="post">
-                            <input class="btn btn-primary" type="submit" value="Leave"/>
-                        </form>
-                    }
-                }
-            </div>
-            <p></p>
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Agent Info</h5>
-                    <p class="card-text">Full Name:  @Model.Agent.FullName</p>
-                    <p class="card-text">Email:  @Model.Agent.Email</p>
-                    <p class="card-text">Phone Number: @Model.Agent.PhoneNumber</p>
+        <div class="row">
+            <div class="row">
+                <div class="row">
+                    <div class="col-4 d-flex justify-content-center">
+                        <img class="card-img-top" style="width: 30rem; border-radius: 10px;" src="@Model.ImageUrl" alt="Equipment Image">
+                    </div>
+                    <div class="card col-8 border-0" style="background-color: #555; border-radius: 10px; color: white; padding: 20px; text-align: center;">
+                        <p style="font-size: 25px; font-family: 'Lobster', cursive; text-decoration: underline;">@Model.Title</p>
+
+                        <p style="font-family: 'Lobster', cursive; color: white;">
+                            Price Per Month:
+                            <b>@String.Format("{0:f2}", Model.PricePerMonth) BGN</b>
+                        </p>
+                        <p style="font-family: 'Lobster', cursive; color: white;">@Model.Description</p>
+                        <p style="font-family: 'Lobster', cursive; color: white;">Category: <b>@Model.Category</b></p>
+                        <p style="font-family: 'Lobster', cursive; color: white;"><i>(@(Model.IsRented ? "Rented" : "Not Rented"))</i></p>
+
+                        <div class="form-inline justify-content-center">
+                            @if (this.User.Identity.IsAuthenticated)
+                            {
+                                @if (await equipmentservice.HasAgentWithIdAsync(Model.Id, User.Id()) || User.IsAdmin())
+                                {
+                                    <div class="mb-2 d-flex justify-content-center">
+                                        <a class="btn btn-light" style="font-family: 'Lobster', cursive;" asp-controller="Equipment" asp-action="Edit"
+                                           asp-route-id="@Model.Id">Edit</a>
+                                        <a class="btn btn-light" style="font-family: 'Lobster', cursive; margin-left: 20px;" asp-controller="Equipment" asp-action="Delete"
+                                           asp-route-id="@Model.Id">Delete</a>
+                                    </div>
+
+
+                                }
+
+                                @if (!Model.IsRented && (await agentservice.ExistByIdAsync(User.Id())) == false || User.IsAdmin())
+                                {
+                                    <div class="mb-2 d-flex justify-content-center">
+                                        <form asp-controller="Equipment" asp-action="Rent" asp-route-id="@Model.Id" method="post">
+                                            <input class="btn btn-light" style="font-family: 'Lobster', cursive;" type="submit" value="Rent" />
+                                        </form>
+                                    </div>
+                                }
+                                else if (await equipmentservice.IsRentedByUserWithIdAsync(Model.Id, User.Id()))
+                                {
+                                    <div class="mb-2 d-flex justify-content-center">
+                                        <form asp-controller="Equipment" asp-action="Leave" asp-route-id="@Model.Id" method="post">
+                                            <input class="btn btn-primary" style="font-family: 'Lobster', cursive;" type="submit" value="Leave" />
+                                        </form>
+                                    </div>
+                                }
+                            }
+                        </div>
+
+                        <p></p>
+                        <div class="d-flex justify-content-center">
+                            <div class="card" style="width: 18rem; background-color: white; border-radius: 10px; color: #555;">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center" style="font-family: 'Lobster', cursive;color:black">Agent Info</h5>
+                                    <p class="card-text text-center" style="color:black;font-family: 'Lobster' , cursive;">Full Name: @Model.Agent.FullName</p>
+                                    <p class="card-text text-center" style="color:black; font-family: 'Lobster' , cursive;">Email: @Model.Agent.Email</p>
+                                    <p class="card-text text-center " style="color:black;font-family: 'Lobster' , cursive;">Phone Number: @Model.Agent.PhoneNumber</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+
+
         </div>
+
     </div>
+</div>
+
+<style>
+    .btn-light {
+        transition: all 0.3s ease;
+    }
+
+        .btn-light:hover {
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.6);
+        }
+</style>

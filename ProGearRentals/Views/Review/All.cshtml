@@ -1,10 +1,19 @@
 ﻿@model IEnumerable<AllReviewQueryModel>
 
-<h2 class="text-center mb-4">All Reviews for @Model.FirstOrDefault()?.Name</h2>
+
+  @if (Model.Any())
+{
+    <h2 class="text-center mb-4" style=" font-family: 'Lobster' , cursive;" >All Reviews for @Model.FirstOrDefault()?.Name</h2>
+}
+else
+{
+    <h3 class="text-center" style=" font-family: 'Lobster' , cursive;">No reviews found for this equipment.</h3>
+}
 
 
 
-<table class="table table-striped">
+
+<table class="table table-striped" style=" font-family: 'Lobster' , cursive;">
     <thead>
         <tr>
             <th>Rating</th>
@@ -30,7 +39,7 @@
         else
         {
             <tr>
-                <td colspan="2" class="text-center">No reviews found for this equipment.</td>
+                <td colspan="2" class="text-center" style=" font-family: 'Lobster' , cursive;">No reviews found for this equipment.</td>
             </tr>
         }
     </tbody>

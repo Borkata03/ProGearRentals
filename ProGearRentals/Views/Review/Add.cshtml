@@ -1,32 +1,49 @@
 ﻿@model AddReviewFormViewModel
 
-<h2 class="text-center mb-4">Add Review</h2>
+<div class="d-flex justify-content-center align-items-start vh-50 mt-5">
+    <div class="col-md-4">
+        <section>
+            <form asp-action="Add" asp-controller="Review" method="post" style="background-color: #555; padding: 20px; border-radius: 10px; text-align: center;">
+                <h2 style="font-family: 'Lobster', cursive; color: white;">Add Review</h2>
+                <hr />
 
-<form asp-action="Add" asp-controller="Review" method="post">
-    <div class="form-group mb-4">
-        <label for="Rating">Rating</label>
-        <select asp-for="Rating" class="form-control" id="Rating" required>
-            <option value="" disabled selected>Select a rating</option>
-            @for (int i = 1; i <= 5; i++)
-            {
-                <option value="@i">@i Star@(i > 1 ? "s" : "")</option>
-            }
-        </select>
-        <span asp-validation-for="Rating" class="text-danger"></span>
+                <div class="form-group mb-4">
+                    <label for="Rating" style="font-family: 'Lobster', cursive; color: white;">Rating</label>
+                    <select asp-for="Rating" class="form-control" id="Rating" required>
+                        <option value="" disabled selected>Select a rating</option>
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <option value="@i">@i Star@(i > 1 ? "s" : "")</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Rating" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label for="Comment" style="font-family: 'Lobster', cursive; color: white;">Comment</label>
+                    <textarea asp-for="Comment" class="form-control" id="Comment" rows="3" required></textarea>
+                    <span asp-validation-for="Comment" class="text-danger"></span>
+                </div>
+
+                <input type="hidden" asp-for="EquipmentId" />
+
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-light w-100" style="font-family: 'Lobster', cursive;">Submit Review</button>
+                </div>
+            </form>
+        </section>
     </div>
+</div>
+<style>
+    .btn-light {
+        transition: all 0.3s ease;
+    }
 
-    <div class="form-group mb-4">
-        <label for="Comment">Comment</label>
-        <textarea asp-for="Comment" class="form-control" id="Comment" rows="3" required></textarea>
-        <span asp-validation-for="Comment" class="text-danger"></span>
-    </div>
+        .btn-light:hover {
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.6);
+        }
+</style>
 
-    <input type="hidden" asp-for="EquipmentId" />
-
-    <div class="form-group text-center">
-        <button type="submit" class="btn btn-primary w-50">Submit Review</button>
-    </div>
-</form>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

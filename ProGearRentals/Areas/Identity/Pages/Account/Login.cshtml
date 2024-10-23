@@ -1,50 +1,43 @@
 ﻿@page
 @model LoginModel
 
-@{
-    ViewData["Title"] = "Log in";
-}
-
-<h1 class="text-center">@ViewData["Title"]</h1>
-<div class="row">
-    <div class="col-md-4 offset-md-4">
+<div class="d-flex justify-content-center align-items-start vh-50 mt-5">
+    
+    <div class="col-md-4">
         <section>
-            <form id="account" method="post">
-                <h2>Use a local account to log in.</h2>
+            <form id="account" method="post" style="background-color: #555; padding: 20px; border-radius: 10px; text-align: center;">
+                <h2 style="font-family: 'Lobster', cursive; color: white;">Log in</h2>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-floating">
+                <div class="form-floating mb-3">
                     <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
-                    <label asp-for="Input.Email" class="form-label"></label>
+                    <label asp-for="Input.Email" class="form-label" style="font-family: 'Lobster', cursive; color: #555;">Email</label>
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
-                <div class="form-floating">
+                <div class="form-floating mb-3">
                     <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
-                    <label asp-for="Input.Password" class="form-label"></label>
+                    <label asp-for="Input.Password" class="form-label" style="font-family: 'Lobster', cursive; color: #555;">Password</label>
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
                 <div>
+                    <button id="login-submit" type="submit" class="w-100 btn btn-light mb-4" style="font-family: 'Lobster', cursive; color: #555">Log in</button>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
                     <div class="checkbox">
-                        <label asp-for="Input.RememberMe" class="form-label">
+                        <label asp-for="Input.RememberMe" class="form-label" style="font-family: 'Lobster', cursive; color: white;">
                             <input class="form-check-input" asp-for="Input.RememberMe" />
                             @Html.DisplayNameFor(m => m.Input.RememberMe)
                         </label>
                     </div>
-                </div>
-                <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-dark">Log in</button>
-                </div>
-                <div>
-                 
-                    <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                    </p>
-                    
+                    <div>
+                        <p style="color: white;">
+                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" style="font-family: 'Lobster', cursive; color: white;">Register as a new user</a>
+                        </p>
+                    </div>
                 </div>
             </form>
         </section>
     </div>
-    
 </div>
 
 @section Scripts {

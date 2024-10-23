@@ -1,5 +1,4 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -8,17 +7,36 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ProGearRentals.styles.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <style>
+        .navbar-brand {
+            font-family: 'Lobster', cursive;
+        }
+
+        .navbar-nav .nav-link {
+            font-family: 'Lobster', cursive;
+        }
+
+        .footer {
+            font-family: 'Lobster', cursive;
+            background-color: #555;
+        }
+
+        .custom-navbar {
+            background-color: #555;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3 ">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light custom-navbar border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">ProGearRentals</a>
                 <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between"> 
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     @await Component.InvokeAsync(nameof(MainMenuComponent))
                     <partial name="_LoginPartial" />
                 </div>
@@ -31,8 +49,8 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-white bg-dark">
-        <div class="container">
+    <footer class="border-top footer text-white">
+        <div class="container text-center">
             &copy; @DateTime.Now.Year - ProGearRentals
         </div>
     </footer>

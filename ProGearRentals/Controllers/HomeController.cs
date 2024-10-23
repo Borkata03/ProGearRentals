@@ -22,11 +22,14 @@ namespace ProGearRentals.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var model = await equipmentService.LastThreeEquipmentsAsync();
+            if (User?.Identity?.IsAuthenticated == false)
+            {
+                return View();
+            }
 
-            return View(model);
+            return RedirectToAction(nameof(EquipmentController.All), "Equipment");
         }
 
 

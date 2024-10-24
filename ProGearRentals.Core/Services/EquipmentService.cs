@@ -205,10 +205,33 @@ namespace ProGearRentals.Core.Services.Equipments
 
         public async Task DeleteAsync(int id)
         {
+            
+            var reviews = await repository.All<Review>()
+                .Where(r => r.EquipmentId == id)
+                .Select(r => r.Id)  
+                .ToListAsync();
+
+            var reservations = await repository.All<Reservation>()
+                .Where(r => r.EquipmentId == id)
+                .Select(r => r.Id)
+                .ToListAsync();
+
+          
+            foreach (var reviewId in reviews)
+            {
+                await repository.DeleteAsync<Review>(reviewId); 
+            }
+
+            foreach (var resertvationId in reservations)
+            {
+                await repository.DeleteAsync<Reservation>(resertvationId);
+            }
+
+
             await repository.DeleteAsync<Equipment>(id);
             await repository.SaveChangesAsync();
-
         }
+
 
         public async Task<bool> IsRentedAsync(int equipmentId)
         {
@@ -238,16 +261,6 @@ namespace ProGearRentals.Core.Services.Equipments
             return result ?? false; 
         }
 
-        public async Task RentAsync(int id, string userId)
-        {
-            var equipment = await repository.GetByIdAsync<Equipment>(id);
-
-            if (equipment != null)
-            {
-                equipment.RenterId = userId;
-                await repository.SaveChangesAsync();
-            }
-        }
 
         public async Task LeaveAsync(int id, string userId)
         {

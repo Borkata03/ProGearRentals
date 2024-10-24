@@ -27,9 +27,10 @@
 
                 @if (!Model.IsRented && !await agentservice.ExistByIdAsync(User.Id()))
                 {
-                    <form class="d-inline me-2" asp-controller="Equipment" asp-action="Rent" asp-route-id="@Model.Id" method="post">
-                        <input class="btn btn-light mb-2" style="font-family: 'Lobster', cursive; " type="submit" value="Rent" />
+                    <form class="d-inline me-2" asp-controller="Reservation" asp-action="Create" asp-route-id="@Model.Id" method="get">
+                        <input class="btn btn-light mb-2" style="font-family: 'Lobster', cursive;" type="submit" value="Rent" />
                     </form>
+
                 }
 
                 @if (await equipmentservice.IsRentedByUserWithIdAsync(Model.Id, User.Id()))

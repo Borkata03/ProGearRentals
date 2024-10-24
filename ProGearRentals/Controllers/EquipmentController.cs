@@ -217,31 +217,7 @@ namespace ProGearRentals.Controllers
 
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Rent(int id)
-        {
-            if (await equipmentService.ExistAsync(id) == false)
-            {
-                return BadRequest();
-            }
-
-            if (await agentService.ExistByIdAsync(User.Id()) && User.IsAdmin() == false)
-              
-            {
-                return Unauthorized();
-            }
-
-            if (await equipmentService.IsRentedAsync(id))
-            {
-                return BadRequest();
-            }
-
-            await equipmentService.RentAsync(id, User.Id());
-
-        
-
-            return RedirectToAction(nameof(All));
-        }
+       
 
         [HttpPost]
         public async Task<IActionResult> Leave(int id)

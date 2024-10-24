@@ -48,17 +48,17 @@ namespace ProGearRentals.Core.Services
                 .ToListAsync();
         }
 
-        public async Task<AddReviewFormViewModel?> GetModelForReviewByIdAsync()
+        public async Task<AddReviewFormViewModel?> GetModelForReviewByIdAsync(int equipmentId)
         {
-           return await repository.AllReadOnly<Review>()
+            return await repository.AllReadOnly<Equipment>()
+                .Where(e => e.Id == equipmentId) 
                 .Select(e => new AddReviewFormViewModel
                 {
-                    Comment = e.Comment,
-                    Rating = e.Rating,  
-                    EquipmentId = e.EquipmentId,   
-                    ReviewerId = e.ReviewerId,
-
-                }).FirstOrDefaultAsync();    
+                    EquipmentId = e.Id, 
+                                         
+                })
+                .FirstOrDefaultAsync();
         }
+
     }
 }

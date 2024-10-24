@@ -32,7 +32,7 @@ namespace ProGearRentals.Controllers
                 return BadRequest();
             }
 
-            var model  = await reviewService.GetModelForReviewByIdAsync();
+            var model  = await reviewService.GetModelForReviewByIdAsync(id);
 
             return View(model);
         }

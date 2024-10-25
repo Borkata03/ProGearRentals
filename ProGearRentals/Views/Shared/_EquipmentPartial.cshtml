@@ -21,9 +21,17 @@
                     @if (await equipmentservice.HasAgentWithIdAsync(Model.Id, User.Id()) || User.IsAdmin())
                     {
                         <a asp-controller="Equipment" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-light me-2" style="font-family: 'Lobster', cursive; background-color: white;">Edit</a>
-                        <a asp-controller="Equipment" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-light me-2" style="font-family: 'Lobster', cursive; background-color: white;">Delete</a>
+                        @if (!await equipmentservice.IsRentedAsync(Model.Id))
+                        {
+                            <a asp-controller="Equipment" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-light me-2" style="font-family: 'Lobster', cursive; background-color: white;">Delete</a>
+                        }
+                       
                     }
                 </div>
+                @if (Model.IsRented && !await agentservice.ExistByIdAsync(User.Id()) && !await equipmentservice.IsRentedByUserWithIdAsync(Model.Id,User.Id()))
+                {
+                    <a asp-controller="Reservation" asp-action="RentedDates" asp-route-id="@Model.Id" class="btn btn-light mb-2" style="font-family: 'Lobster', cursive; background-color: white;">Busy Dates</a>
+                }
 
                 @if (!Model.IsRented && !await agentservice.ExistByIdAsync(User.Id()))
                 {

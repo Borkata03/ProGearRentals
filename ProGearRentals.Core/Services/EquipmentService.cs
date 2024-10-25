@@ -266,6 +266,20 @@ namespace ProGearRentals.Core.Services.Equipments
         {
             var equipment = await repository.GetByIdAsync<Equipment>(id);
 
+
+            var reservations = await repository.All<Reservation>()
+                .Where(r => r.EquipmentId == id)
+                .Select(r => r.Id)
+                .ToListAsync();
+
+
+            foreach (var reviewId in reservations)
+            {
+                await repository.DeleteAsync<Reservation>(reviewId);
+            }
+
+
+
             if (equipment != null)
             {
                 if (equipment.RenterId != userId)

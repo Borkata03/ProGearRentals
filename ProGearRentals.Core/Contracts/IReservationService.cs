@@ -14,5 +14,9 @@ namespace ProGearRentals.Core.Contracts
         Task CreateAsync(AddReservationFormViewModel model,string userId);
 
         Task RentAsync(int id, string userId);
+
+        Task<ReservationViewModel?> GetModelForAvailableDates(int id);
+
+     
     }
 }

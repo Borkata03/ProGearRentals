@@ -1,0 +1,24 @@
+﻿@model ReservationViewModel
+
+<div class="d-flex justify-content-center align-items-start vh-80 mt-1">
+    <div class="col-md-4">
+        <h2 style="color: black; font-family: 'Lobster', cursive; text-align: center;">Reserved Dates</h2>
+
+       
+       <div class="alert alert-info text-center">
+    <h5 style="font-family: 'Lobster', cursive;">Reserved Dates:</h5>
+    <p style="font-family: 'Lobster', cursive;">Start Date: @Model.StartDate</p>
+    <p style="font-family: 'Lobster', cursive;">End Date: @Model.EndDate</p> 
+</div>
+
+    </div>
+</div>
+
+<style>
+    .alert {
+        background-color: #555;
+        color: white;
+        border-radius: 10px;
+        padding: 15px;
+    }
+</style>

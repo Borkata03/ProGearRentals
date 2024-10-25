@@ -20,6 +20,9 @@ namespace ProGearRentals.Core.Services
                 repository = _repository;
         }
 
+        
+
+
         public async Task CreateAsync(AddReservationFormViewModel model, string userId)
         {
             DateTime start = DateTime.Parse(model.StartDate);
@@ -52,10 +55,24 @@ namespace ProGearRentals.Core.Services
                 }).FirstOrDefaultAsync();
 
         }
+
+        public async Task<ReservationViewModel?> GetModelForAvailableDates(int id)
+        {
+            return await repository.AllReadOnly<Reservation>()
+                .Where(r => r.EquipmentId == id)
+                .Select(r => new ReservationViewModel
+                {
+                    StartDate = r.StartDate.ToString("dd-MM-yyyy"),
+                    EndDate = r.EndDate.ToString("dd-MM-yyyy")
+
+                }).FirstOrDefaultAsync();
+        }
+
         public async Task RentAsync(int id, string userId)
         {
             var equipment = await repository.GetByIdAsync<Equipment>(id);
 
+          
             if (equipment != null)
             {
                 equipment.RenterId = userId;

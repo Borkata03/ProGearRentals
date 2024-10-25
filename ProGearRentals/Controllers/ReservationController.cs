@@ -67,6 +67,15 @@ namespace ProGearRentals.Controllers
 
         }
 
+        [HttpGet]
+        [NotAnAgent]
+        public async Task<IActionResult> RentedDates(int id)
+        {
+           var model = await reservationService.GetModelForAvailableDates(id);
+
+            return View(model);
+
+        }
 
 
 

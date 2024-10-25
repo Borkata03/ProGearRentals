@@ -4,38 +4,26 @@
 @inject UserManager<ApplicationUser> UserManager
 @inject IAgentService agentservice
 
-@{
-    string userName = string.Empty;
-
-    if (SignInManager.IsSignedIn(User))
-    {
-        userName = User.FindFirstValue(ProGearRentals.Infrastructure.Constants.CustomClaims.UserFullNameClaim) ?? string.Empty;
-    }
-}
-
 <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 
 <style>
     .navbar-nav .nav-link {
         font-family: 'Lobster', cursive; 
     }
-   
 </style>
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-        @if (await agentservice.ExistByIdAsync(User.Id()) == false)
+      
+        var currentUser = await UserManager.FindByIdAsync(User.Id());
+        var userName = $"{currentUser.FirstName} {currentUser.LastName}";
+
+        @if (!await agentservice.ExistByIdAsync(User.Id()))
         {
             <li class="nav-item">
                 <a class="nav-link text-white" asp-area="" asp-controller="Agent" asp-action="Become">Become Agent</a>
             </li>
-        }
-        else
-        {
-            <form asp-area="" asp-controller="Agent" asp-action="BecomeUser" method="post">
-                <button type="submit" class="nav-link text-white btn btn-link">Become User</button>
-            </form>
         }
 
         <li class="nav-item">

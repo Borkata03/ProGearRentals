@@ -36,8 +36,12 @@
                                     <div class="mb-2 d-flex justify-content-center">
                                         <a class="btn btn-light" style="font-family: 'Lobster', cursive;" asp-controller="Equipment" asp-action="Edit"
                                            asp-route-id="@Model.Id">Edit</a>
-                                        <a class="btn btn-light" style="font-family: 'Lobster', cursive; margin-left: 20px;" asp-controller="Equipment" asp-action="Delete"
-                                           asp-route-id="@Model.Id">Delete</a>
+                                        @if (!await equipmentservice.IsRentedAsync(Model.Id))
+                                        {
+                                            <a class="btn btn-light" style="font-family: 'Lobster', cursive; margin-left: 20px;" asp-controller="Equipment" asp-action="Delete"
+                                               asp-route-id="@Model.Id">Delete</a>
+                                        }
+                                   
                                     </div>
 
 
@@ -45,17 +49,16 @@
 
                                 @if (!Model.IsRented && (await agentservice.ExistByIdAsync(User.Id())) == false || User.IsAdmin())
                                 {
-                                    <div class="mb-2 d-flex justify-content-center">
-                                        <form asp-controller="Equipment" asp-action="Rent" asp-route-id="@Model.Id" method="post">
-                                            <input class="btn btn-light" style="font-family: 'Lobster', cursive;" type="submit" value="Rent" />
-                                        </form>
-                                    </div>
+                                    <form class="d-inline me-2" asp-controller="Reservation" asp-action="Create" asp-route-id="@Model.Id" method="get">
+                                        <input class="btn btn-light mb-2" style="font-family: 'Lobster', cursive;" type="submit" value="Rent" />
+                                    </form>
+
                                 }
                                 else if (await equipmentservice.IsRentedByUserWithIdAsync(Model.Id, User.Id()))
                                 {
                                     <div class="mb-2 d-flex justify-content-center">
                                         <form asp-controller="Equipment" asp-action="Leave" asp-route-id="@Model.Id" method="post">
-                                            <input class="btn btn-primary" style="font-family: 'Lobster', cursive;" type="submit" value="Leave" />
+                                            <input class="btn btn-light" style="font-family: 'Lobster', cursive;" type="submit" value="Leave" />
                                         </form>
                                     </div>
                                 }

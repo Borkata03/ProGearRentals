@@ -20,6 +20,5 @@ namespace ProGearRentals.Core.Contracts
 
         Task<int?> GetAgentIdAsync(string userId);
 
-        Task DeleteAgentAsync(int? userId);
     }
 }

@@ -83,12 +83,9 @@ namespace ProGearRentals.Infrastructure.Data.SeedDb
                 ClaimType = UserFullNameClaim,
                 ClaimValue = "Agent Agentski",
                 UserId = "dea12856-c198-4129-b3f3-b893d8395082"
-
             };
 
-
-            AgentUser.PasswordHash =
-                 hasher.HashPassword(AgentUser, "agent123");
+            AgentUser.PasswordHash = hasher.HashPassword(AgentUser, "agent123");
 
             GuestUser = new ApplicationUser()
             {
@@ -99,21 +96,17 @@ namespace ProGearRentals.Infrastructure.Data.SeedDb
                 NormalizedEmail = "guest@mail.com",
                 FirstName = "Guest",
                 LastName = "Guestski "
-
             };
+
             GuestUserClaim = new IdentityUserClaim<string>()
             {
                 Id = 2,
                 ClaimType = UserFullNameClaim,
                 ClaimValue = "Guest Guestski",
-                UserId = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
-                
-
+                UserId = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e"
             };
 
-            GuestUser.PasswordHash =
-            hasher.HashPassword(AgentUser, "guest123");
-
+            GuestUser.PasswordHash = hasher.HashPassword(GuestUser, "guest123");
 
             AdminUser = new ApplicationUser()
             {
@@ -124,24 +117,19 @@ namespace ProGearRentals.Infrastructure.Data.SeedDb
                 NormalizedEmail = "ADMIN@MAIL.COM",
                 FirstName = "Top",
                 LastName = "Admin"
-
             };
+
             AdminUserClaim = new IdentityUserClaim<string>()
             {
                 Id = 3,
                 ClaimType = UserFullNameClaim,
                 UserId = "5fd5055a-69af-416a-acc6-d01823105d81",
                 ClaimValue = "Top Admin"
-           
-
-
             };
-            AdminUser.PasswordHash =
-           hasher.HashPassword(AdminUser, "admin123");
 
-
-             
+            AdminUser.PasswordHash = hasher.HashPassword(AdminUser, "admin1234"); 
         }
+
 
         private void SeedAgent()
         {
@@ -187,7 +175,7 @@ namespace ProGearRentals.Infrastructure.Data.SeedDb
                 Name = "SummerGear"
             };
         }
-
+            
         private void SeedEquipments()
         {
             FirstEquipment = new Equipment()

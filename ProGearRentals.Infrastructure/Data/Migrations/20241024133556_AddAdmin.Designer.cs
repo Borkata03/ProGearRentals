@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProGearRentals.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using ProGearRentals.Infrastructure.Data;
 namespace ProGearRentals.Infrastructure.Migrations
 {
     [DbContext(typeof(ProGearRentalsDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241024133556_AddAdmin")]
+    partial class AddAdmin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -307,7 +309,7 @@ namespace ProGearRentals.Infrastructure.Migrations
                         {
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5ca117bb-8d09-424e-adc4-6263e0def1aa",
+                            ConcurrencyStamp = "c15644e9-32db-4acd-8233-2181e4f2faf2",
                             Email = "agent@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Agent",
@@ -315,9 +317,9 @@ namespace ProGearRentals.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "agent@mail.com",
                             NormalizedUserName = "agent@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKAFJcVFGNAPK3tUHvsi5vUvouz+FzHse9P+ljX5sHx/loF/LfqxfH9bLTjClLZA0g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEv/8N9xLXM/W9YOHgSAypI+mDu1rELxXTfDfEF54jBmXRok8ya6jomkYId8T1ah9g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "97674d88-d812-402c-af19-9d6f962cafd4",
+                            SecurityStamp = "5a82f015-b9db-4c4d-9420-9727c36e7c62",
                             TwoFactorEnabled = false,
                             UserName = "agent@mail.com"
                         },
@@ -325,7 +327,7 @@ namespace ProGearRentals.Infrastructure.Migrations
                         {
                             Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0cc959e2-5c62-43ef-8cf8-a71e62d8ee62",
+                            ConcurrencyStamp = "af55bfa7-622c-44b3-aa99-86a65e070e77",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Guest",
@@ -333,9 +335,9 @@ namespace ProGearRentals.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@mail.com",
                             NormalizedUserName = "guest@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJM/3Sn3DtNR0y0Nl0P23MSZNGnmG5SBNgoHiSNoRMc7RBuTrsCA5aq6TUDpaj3YXw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKZJUtlo9hf5C7z+PPPSBroKZXzqDnZVMVqrE6YjapW3uMKEWjYnHKt1Q8q/JhL8lg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3ab12ece-8c60-442c-9c73-a29cf76a0bdf",
+                            SecurityStamp = "6de8b799-ddea-4b17-be51-6e7835885a8b",
                             TwoFactorEnabled = false,
                             UserName = "guest@mail.com"
                         },
@@ -343,7 +345,7 @@ namespace ProGearRentals.Infrastructure.Migrations
                         {
                             Id = "5fd5055a-69af-416a-acc6-d01823105d81",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "333fbd53-ed57-4a56-be68-e2e59d9f2416",
+                            ConcurrencyStamp = "a7a079ca-9d02-41ba-a5e7-afe31ca9f245",
                             Email = "admin@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Top",
@@ -351,9 +353,9 @@ namespace ProGearRentals.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MAIL.COM",
                             NormalizedUserName = "ADMIN@MAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPObEKvTVvQMZ8G3EEj0F075+f56yfEyKazC4ThS+0TZQ6Kfdveyg/5mZMPz/P4vGg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEC8DydkfvTVVae5X+Q+vCSVZdh+jdOYLeCJJj8JEGA7qc5JlE8RGb+Rv8uWHtST32Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "628ae5ab-d587-41e7-9014-01afb1a78625",
+                            SecurityStamp = "259bbf27-2581-4997-a4fd-652de454752d",
                             TwoFactorEnabled = false,
                             UserName = "admin@mail.com"
                         });

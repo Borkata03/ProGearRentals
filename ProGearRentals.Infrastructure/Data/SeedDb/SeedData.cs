@@ -187,7 +187,7 @@ namespace ProGearRentals.Infrastructure.Data.SeedDb
                 PricePerMonth = 150.00M,
                 CategoryId = WinterSportsEquipment.Id,
                 AgentId = Agent.Id,
-                RenterId = GuestUser.Id
+              
             };
 
             SecondEquipment = new Equipment()

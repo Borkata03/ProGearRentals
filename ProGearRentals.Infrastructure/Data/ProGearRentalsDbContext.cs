@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ProGearRentals.Infrastructure.Data.Models;
 using ProGearRentals.Infrastructure.Data.SeedDb;

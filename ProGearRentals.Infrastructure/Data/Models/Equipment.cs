@@ -43,9 +43,6 @@ namespace ProGearRentals.Infrastructure.Data.Models
         [Comment("Agent Identifier")] 
         public int AgentId { get; set; }
 
-        [Comment("User id of the renterer")]
-        public string? RenterId { get; set; }
-
         [ForeignKey(nameof(CategoryId))]
         public Category Category { get; set; } = null!;
 

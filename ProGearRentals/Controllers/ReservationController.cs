@@ -30,6 +30,11 @@ namespace ProGearRentals.Controllers
         {
             var model = await reservationService.GetFormModelForReservation(id);
 
+            if (model != null)
+            {
+                model.RentedDates = await reservationService.GetRentedDates(id);
+            }
+
             if (model == null)
             {
                 return BadRequest();
@@ -42,6 +47,9 @@ namespace ProGearRentals.Controllers
         [NotAnAgent]
         public async Task<IActionResult> Create(AddReservationFormViewModel model)
         {
+            DateTime start = DateTime.Parse(model.StartDate);
+            DateTime end = DateTime.Parse(model.EndDate);
+
             if (await equipmentService.ExistAsync(model.Id) == false)
             {
                 return BadRequest();
@@ -57,23 +65,24 @@ namespace ProGearRentals.Controllers
             {
                 return BadRequest();
             }
-
+            if (start >= end)
+            {
+                ModelState.AddModelError("", "Start date must be before end date.");
+                return View(model);
+            }
+            else if (await reservationService.RentedDates(model.Id, start, end)) 
+            {
+                model.RentedDates = await reservationService.GetRentedDates(model.Id);
+                ModelState.AddModelError("", "The selected dates are already reserved. Please choose a different period.");
+                return View(model); 
+            }
+            
             await reservationService.CreateAsync(model, User.Id());
 
             await reservationService.RentAsync(model.Id, User.Id());
 
 
             return RedirectToAction(nameof(EquipmentController.Mine), "Equipment");
-
-        }
-
-        [HttpGet]
-        [NotAnAgent]
-        public async Task<IActionResult> RentedDates(int id)
-        {
-           var model = await reservationService.GetModelForAvailableDates(id);
-
-            return View(model);
 
         }
 

@@ -15,7 +15,9 @@ namespace ProGearRentals.Core.Contracts
 
         Task RentAsync(int id, string userId);
 
-        Task<ReservationViewModel?> GetModelForAvailableDates(int id);
+        Task<IEnumerable<ReservationViewModel>> GetRentedDates(int id);
+
+        Task<bool> RentedDates(int id, DateTime start, DateTime end);
 
      
     }

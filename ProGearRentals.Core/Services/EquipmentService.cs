@@ -43,10 +43,7 @@ namespace ProGearRentals.Core.Services.Equipments
             equipmentsToShow = sorting switch
             {
                 EquipmentSorting.Price => equipmentsToShow.OrderBy(h => h.PricePerMonth),
-
-                EquipmentSorting.NotRentedFirst => equipmentsToShow.OrderBy(h => h.RenterId == null)
-                .ThenByDescending(h => h.Id),
-          
+             
                 _ => equipmentsToShow.
                 OrderByDescending(h => h.Id)
             };
@@ -118,9 +115,17 @@ namespace ProGearRentals.Core.Services.Equipments
 
         public async Task<IEnumerable<EquipmentServiceModel>> AllEquipmentsByUserId(string userId)
         {
-            return await repository.AllReadOnly<Equipment>()
-                .Where(u => u.RenterId == userId)
-                .ProjectEquipment()
+            return await repository.AllReadOnly<Reservation>()
+                .Where(u => u.UserId == userId)
+                .Select(u => new EquipmentServiceModel()
+                {
+                    Id= u.Equipment.Id,
+                    Description= u.Equipment.Description,   
+                    ImageUrl= u.Equipment.ImageUrl,
+                    PricePerMonth = u.Equipment.PricePerMonth,  
+                    Title = u.Equipment.Title,  
+                    
+                })
                 .ToListAsync();   
         }
 
@@ -147,7 +152,6 @@ namespace ProGearRentals.Core.Services.Equipments
                      Category = e.Category.Name,
                      Description = e.Description,   
                      ImageUrl = e.ImageUrl,
-                     IsRented = e.RenterId != null,
                      PricePerMonth = e.PricePerMonth,
                      Title = e.Title,
 
@@ -237,11 +241,11 @@ namespace ProGearRentals.Core.Services.Equipments
         {
             bool? result = null;
 
-            var equipment = await repository.GetByIdAsync<Equipment>(equipmentId);
+            var equipment = await repository.GetByIdAsync<Reservation>(equipmentId);
 
             if (equipment != null)
             {
-               result = equipment.RenterId != null;
+               result = equipment.UserId != null;
             }
 
             return result ?? false;
@@ -251,11 +255,11 @@ namespace ProGearRentals.Core.Services.Equipments
         {
             bool? result = null;
 
-            var equipment = await repository.GetByIdAsync<Equipment>(equipmentId);
+            var equipment = await repository.AllReadOnly<Reservation>().Where(r => r.EquipmentId == equipmentId && r.UserId == userId).FirstOrDefaultAsync();
 
             if (equipment != null)
             {
-                result = equipment.RenterId == userId;
+                result = equipment.UserId == userId;
             }
 
             return result ?? false; 
@@ -264,11 +268,11 @@ namespace ProGearRentals.Core.Services.Equipments
 
         public async Task LeaveAsync(int id, string userId)
         {
-            var equipment = await repository.GetByIdAsync<Equipment>(id);
+            var equipment = await repository.AllReadOnly<Reservation>().Where(r => r.UserId == userId && r.EquipmentId == id).FirstOrDefaultAsync();
 
 
             var reservations = await repository.All<Reservation>()
-                .Where(r => r.EquipmentId == id)
+                .Where(r => r.EquipmentId == id && r.UserId == userId)
                 .Select(r => r.Id)
                 .ToListAsync();
 
@@ -282,12 +286,12 @@ namespace ProGearRentals.Core.Services.Equipments
 
             if (equipment != null)
             {
-                if (equipment.RenterId != userId)
+                if (equipment.UserId != userId)
                 {
                     throw new UnauthorizedActionException("The user is not the renter");
                 }
 
-                equipment.RenterId = null;
+              
                 await repository.SaveChangesAsync();
             }
         }

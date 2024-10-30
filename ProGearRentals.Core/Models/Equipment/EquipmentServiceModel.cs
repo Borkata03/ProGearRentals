@@ -32,9 +32,5 @@ namespace ProGearRentals.Core.Models.Equipment
         [Display(Name = "Price Per Month")]
         public decimal PricePerMonth { get; set; }
 
-        [Display(Name = "is Rented")]
-        public bool IsRented { get; set; }
-        
-
     }
 }

@@ -3,6 +3,7 @@
 <div class="d-flex justify-content-center align-items-start vh-80 mt-1">
     <div class="col-md-4">
         <h2 style="color: black; font-family: 'Lobster', cursive; text-align: center;">Create Reservation</h2>
+
         <form method="post" style="background-color: #555; padding: 20px; border-radius: 10px; text-align: center;">
             <hr />
 
@@ -10,29 +11,65 @@
                 <label asp-for="StartDate" style="font-family: 'Lobster', cursive; color: white;"></label>
                 <input asp-for="StartDate" type="date" class="form-control" required />
                 <span asp-validation-for="StartDate" class="small text-danger"></span>
-            </div>
-
-            <div class="form-group mb-4">
                 <label asp-for="EndDate" style="font-family: 'Lobster', cursive; color: white;"></label>
                 <input asp-for="EndDate" type="date" class="form-control" required />
                 <span asp-validation-for="EndDate" class="small text-danger"></span>
             </div>
 
+
             <div class="text-center">
                 <button type="submit" class="btn btn-light w-100" style="font-family: 'Lobster', cursive;">Save</button>
             </div>
         </form>
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger text-center" style="font-family: 'Lobster', cursive;">
+                <p>@ViewData.ModelState[""].Errors.FirstOrDefault()?.ErrorMessage</p>
+            </div>
+        }
+        
+   
+
+
+        <hr />
+
+        <h2 style="color: black; font-family: 'Lobster', cursive; text-align: center;">Reserved Dates</h2>
+
+        <table class="table" style="background-color: #555; color: white; text-align: center;">
+            <thead>
+                <tr>
+                    <th style="font-family: 'Lobster', cursive; text-align: center;">Start Date</th>
+                    <th style="font-family: 'Lobster', cursive; text-align: center;">End Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.RentedDates.Any())
+                {
+                    @foreach (var reservation in Model.RentedDates)
+                    {
+                        <tr>
+                            <td style="font-family: 'Lobster', cursive;">@reservation.StartDate</td>
+                            <td style="font-family: 'Lobster', cursive;">@reservation.EndDate</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="2" style="font-family: 'Lobster', cursive; text-align: center;">No reservations for this equipment.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
     </div>
 </div>
 
 <style>
-    .btn-light {
-        background-color: white;
-        color: #555; 
-        transition: all 0.3s ease;
+    .table {
+        background-color: #555;
+        color: white;
+        border-radius: 10px;
     }
-
-        .btn-light:hover {
-            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.6);
-        }
 </style>

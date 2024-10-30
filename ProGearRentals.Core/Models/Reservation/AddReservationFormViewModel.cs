@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProGearRentals.Infrastructure.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -22,5 +23,7 @@ namespace ProGearRentals.Core.Models.Reservation
 
         [Required]
         public string UserId {  get; set; } = string.Empty;
+
+        public IEnumerable<ReservationViewModel> RentedDates { get; set; } = new List<ReservationViewModel>();
     }
 }

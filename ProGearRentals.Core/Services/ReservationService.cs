@@ -56,7 +56,7 @@ namespace ProGearRentals.Core.Services
 
         }
 
-        public async Task<ReservationViewModel?> GetModelForAvailableDates(int id)
+        public async Task<IEnumerable<ReservationViewModel>> GetRentedDates(int id)
         {
             return await repository.AllReadOnly<Reservation>()
                 .Where(r => r.EquipmentId == id)
@@ -65,19 +65,28 @@ namespace ProGearRentals.Core.Services
                     StartDate = r.StartDate.ToString("dd-MM-yyyy"),
                     EndDate = r.EndDate.ToString("dd-MM-yyyy")
 
-                }).FirstOrDefaultAsync();
+                }).ToListAsync();
         }
 
         public async Task RentAsync(int id, string userId)
         {
-            var equipment = await repository.GetByIdAsync<Equipment>(id);
+            var reservation = await repository.GetByIdAsync<Reservation>(id);
 
           
-            if (equipment != null)
+            if (reservation != null)
             {
-                equipment.RenterId = userId;
+                reservation.UserId = userId;
                 await repository.SaveChangesAsync();
             }
         }
+
+        public Task<bool> RentedDates(int id, DateTime start, DateTime end)
+        {
+
+
+            return repository.AllReadOnly<Reservation>()
+                .AnyAsync(r => r.EquipmentId == id && r.StartDate < end && r.EndDate > start);
+
+        }
     }
-}
+}       

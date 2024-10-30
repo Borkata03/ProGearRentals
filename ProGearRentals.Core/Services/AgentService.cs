@@ -41,8 +41,8 @@ namespace ProGearRentals.Core.Services
 
         public async Task<bool> UserHasRentsAsync(string userId)
         {
-            return await repository.AllReadOnly<Equipment>()
-                .AnyAsync(h => h.RenterId == userId);
+            return await repository.AllReadOnly<Reservation>()
+                .AnyAsync(h => h.UserId == userId);
         }
 
         public async Task<bool> UserWithPhoneNumberExistAsync(string phoneNumber)

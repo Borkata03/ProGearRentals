@@ -9,8 +9,9 @@ namespace ProGearRentals.Core.Constants
     public class AdministratorConstants
     {
         public const string AdminRole = "Administrator";
-        public const string AreaName = "AdminArea";
-        public const string AdminEmail = "agent@mail.com";
+        public const string AdminAreaName = "AdminArea";
+        public const string AdminEmail = "admin@mail.com";
+		public const string UsersCacheKey = "UsersCacheKey";
 
-    }
+	}
 }

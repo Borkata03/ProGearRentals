@@ -4,24 +4,19 @@
 @inject UserManager<ApplicationUser> UserManager
 
 
-@{
-    string username = string.Empty;
-    if (SignInManager.IsSignedIn(User))
-    {
-        var user = await UserManager.FindByIdAsync(User.Id());
-        username = $"{user.FirstName} {user.LastName}";
-    }
-}
+
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-        
+
+        var currentUser = await UserManager.FindByIdAsync(User.Id());
+        var userName = $"{currentUser.FirstName} {currentUser.LastName}";
         <li class="nav-item">
-            <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title ="Manage">Hello @username!   </a>
+            <a class="nav-link text-white"  title ="Manage">Hello @userName!   </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" asp-area=""  asp-controller="Home" asp-action="Index" title="Back">Back</a>
+            <a class="nav-link text-white" asp-area=""  asp-controller="Home" asp-action="Index" title="Public Interface">Public Interface</a>
         </li>
 
 

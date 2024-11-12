@@ -1,8 +1,7 @@
-﻿    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ProGearRentals.Infrastructure.Data.Models;
 using ProGearRentals.Infrastructure.Data.SeedDb;
-using System.Reflection.Emit;
 
 namespace ProGearRentals.Infrastructure.Data
 {

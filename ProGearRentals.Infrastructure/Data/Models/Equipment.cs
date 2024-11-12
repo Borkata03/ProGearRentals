@@ -1,4 +1,4 @@
-﻿
+﻿ 
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;    
 using System.ComponentModel.DataAnnotations.Schema;
@@ -32,7 +32,7 @@ namespace ProGearRentals.Infrastructure.Data.Models
         [Required]
         [Comment("Monthfly Price")]
         [Column(TypeName = "decimal(18,2)")]
-        //[Range(typeof(decimal), EquipmentRentingPriceMinimum, EquipmentRentingPriceMaximum, ConvertValueInInvariantCulture = true)]
+       
         public decimal PricePerMonth { get;set; }
 
         [Required]
@@ -42,6 +42,9 @@ namespace ProGearRentals.Infrastructure.Data.Models
         [Required]
         [Comment("Agent Identifier")] 
         public int AgentId { get; set; }
+
+        [Comment("Is Equipment approved by admin")]
+        public bool IsApproved { get; set; }    
 
         [ForeignKey(nameof(CategoryId))]
         public Category Category { get; set; } = null!;

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProGearRentals.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using ProGearRentals.Infrastructure.Data;
 namespace ProGearRentals.Infrastructure.Migrations
 {
     [DbContext(typeof(ProGearRentalsDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241101133027_AdminClaims")]
+    partial class AdminClaims
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -207,8 +209,7 @@ namespace ProGearRentals.Infrastructure.Migrations
                     b.HasIndex("PhoneNumber")
                         .IsUnique();
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("Agents");
 
@@ -308,7 +309,7 @@ namespace ProGearRentals.Infrastructure.Migrations
                         {
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0ad60514-e0f1-4bdc-8118-0043ead611aa",
+                            ConcurrencyStamp = "628dc1d6-6f62-4540-908b-6098559a1e16",
                             Email = "agent@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Agent",
@@ -316,9 +317,9 @@ namespace ProGearRentals.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "agent@mail.com",
                             NormalizedUserName = "agent@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMykJwpPvAiIT8ts4XGT1fDlMGpu9A8ABz8SxdIyVT27e+hTXd5HqSyBLZ0dnqWkjg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEB54vV3cP8MUAh7UokMdryd9f1c9uuJLlTiwthYJ7lqBds0kuTbpdBreQAqrImhvdA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "99300cbd-9e9a-4566-9ce3-7499ebc45fb6",
+                            SecurityStamp = "7733528c-eeea-4a9b-ae53-2fc19b213599",
                             TwoFactorEnabled = false,
                             UserName = "agent@mail.com"
                         },
@@ -326,7 +327,7 @@ namespace ProGearRentals.Infrastructure.Migrations
                         {
                             Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fd91b4c4-95f4-42b9-9b31-ec6ae329c5c9",
+                            ConcurrencyStamp = "18d8607c-b09e-4bba-82ef-b50488ea0856",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Guest",
@@ -334,9 +335,9 @@ namespace ProGearRentals.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@mail.com",
                             NormalizedUserName = "guest@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEH1p6UrZCVS56tvu9r2e4sH4Gv0M5XGVMcDTApnJ33j2JQBoKKBryf3MCw99iUCZqg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENdzrPABf0Mc4Tnb3L5yJtBv8iwVvu6BMMQdm2sqRXw7Zn9hv+DyH9sPmxMT1qh4Zg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d41930f7-19aa-4955-b719-8749c44b3e43",
+                            SecurityStamp = "7e883ab5-3780-4041-b8e2-34bf005e2a48",
                             TwoFactorEnabled = false,
                             UserName = "guest@mail.com"
                         },
@@ -344,7 +345,7 @@ namespace ProGearRentals.Infrastructure.Migrations
                         {
                             Id = "5fd5055a-69af-416a-acc6-d01823105d81",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1c65c235-5433-45d1-8e19-72d5cdc18b69",
+                            ConcurrencyStamp = "0ac5f03e-016d-4aad-ad7a-342cfef5dced",
                             Email = "admin@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Top",
@@ -352,9 +353,9 @@ namespace ProGearRentals.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MAIL.COM",
                             NormalizedUserName = "ADMIN@MAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAENOWOkXd4qGznGWy0DxEhnlK09zBDZRm+FveEmFBQJwAMgWepwAHwB98b7//FnN8dQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBDVQX5wmj40m0zyrtpyFQp9jFG4JRlpApZa+CJa35Ea37GdS5d489JJNxOiVXSpnQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "921140d7-2b9d-4e4f-aea3-028431e95148",
+                            SecurityStamp = "ea869c2b-2eed-4252-879e-1dac3ec5175d",
                             TwoFactorEnabled = false,
                             UserName = "admin@mail.com"
                         });
@@ -432,10 +433,6 @@ namespace ProGearRentals.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasComment("Equipment image Url");
 
-                    b.Property<bool>("IsApproved")
-                        .HasColumnType("bit")
-                        .HasComment("Is Equipment approved by admin");
-
                     b.Property<decimal>("PricePerMonth")
                         .HasColumnType("decimal(18,2)")
                         .HasComment("Monthfly Price");
@@ -464,7 +461,6 @@ namespace ProGearRentals.Infrastructure.Migrations
                             CategoryId = 3,
                             Description = "The snowboard is a versatile and essential piece of equipment for snowboarding enthusiasts. ",
                             ImageUrl = "https://cdn02.plentymarkets.com/dqaqtvmxowl5/item/images/19158/full/Jones-Frontier-Wide-Snowboard-21-Freeride-All-Mountain-Powder.jpg",
-                            IsApproved = false,
                             PricePerMonth = 150.00m,
                             Title = "Snowboard"
                         },
@@ -475,7 +471,6 @@ namespace ProGearRentals.Infrastructure.Migrations
                             CategoryId = 3,
                             Description = "The waterproof jacket is a crucial piece of gear for outdoor enthusiasts and athletes who need protection from rain and wind. ",
                             ImageUrl = "https://th.bing.com/th/id/R.8cb5238aadcab3b3db54f3ce5d8add34?rik=hJ9E41YY2Idwtg&pid=ImgRaw&r=0",
-                            IsApproved = false,
                             PricePerMonth = 120.00m,
                             Title = "WaterproofJacket"
                         },
@@ -486,7 +481,6 @@ namespace ProGearRentals.Infrastructure.Migrations
                             CategoryId = 1,
                             Description = "A climbing harness is an essential piece of safety equipment for climbers, providing security and comfort while ascending. ",
                             ImageUrl = "https://th.bing.com/th/id/R.5919827440acbdd756a86ad4c0fc3c50?rik=gWbQT31EPisuSQ&pid=ImgRaw&r=0",
-                            IsApproved = false,
                             PricePerMonth = 250.00m,
                             Title = "ClimbingHarnesses"
                         });
@@ -674,8 +668,8 @@ namespace ProGearRentals.Infrastructure.Migrations
             modelBuilder.Entity("ProGearRentals.Infrastructure.Data.Models.Agent", b =>
                 {
                     b.HasOne("ProGearRentals.Infrastructure.Data.Models.ApplicationUser", "User")
-                        .WithOne("Agent")
-                        .HasForeignKey("ProGearRentals.Infrastructure.Data.Models.Agent", "UserId")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -742,12 +736,6 @@ namespace ProGearRentals.Infrastructure.Migrations
             modelBuilder.Entity("ProGearRentals.Infrastructure.Data.Models.Agent", b =>
                 {
                     b.Navigation("Equipments");
-                });
-
-            modelBuilder.Entity("ProGearRentals.Infrastructure.Data.Models.ApplicationUser", b =>
-                {
-                    b.Navigation("Agent")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("ProGearRentals.Infrastructure.Data.Models.Category", b =>

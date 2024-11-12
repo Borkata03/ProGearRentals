@@ -8,22 +8,45 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ProGearRentals.styles.css" asp-append-version="true" />
+    <style>
+        .navbar-brand {
+            font-family: 'Lobster', cursive;
+        }
+
+        .navbar-nav .nav-link {
+            font-family: 'Lobster', cursive;
+        }
+
+        .footer {
+            font-family: 'Lobster', cursive;
+            background-color: #555;
+        }
+
+        .custom-navbar {
+            background-color: #555;
+        }
+
+        .text-white {
+            color: white !important;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3 ">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light custom-navbar border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">ProGearRentals</a>
                 <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between"> 
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     @await Component.InvokeAsync(nameof(AdminMenuComponent))
                     <partial name="_AdminPartial" />
-                </div>  
+                </div>
             </div>
         </nav>
+
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -31,11 +54,13 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-white bg-dark">
-        <div class="container">
-            &copy; @DateTime.Now.Year - ProGearRentals<span class="danger">This area is only for Admistrators!</span>
-        </div>
+    <footer class="footer text-center lh-1" style="background-color: #555; color: white; font-family: 'Lobster', cursive;">
+        
+            <p class="text-center mt-4" >&copy; @DateTime.Now.Year - ProGearRentals</p>
+            <p class="text-light mb-4">This area is only for Administrators!</p>
+        
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

@@ -60,7 +60,7 @@ namespace ProGearRentals.Controllers
         [NotAnAgent]
         public async Task<IActionResult> All(int id)
         {
-            if (await agentService.ExistByIdAsync(User.Id()))
+            if (await agentService.ExistByIdAsync(User.Id()) && User.IsAdmin() == false)
             {
                 return BadRequest();
             }

@@ -1,5 +1,27 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Dashboard";
 }
+
+<div class="mt-5 p-5 text-center" style="background-color: #555; color: white; border-radius: 8px;">
+    <h2 class="display-4 mt-5" style="font-family: 'Lobster', cursive;">Hello, Admin!</h2>
+    <p class="lead mb-1 mt-3" style="font-family: 'Lobster', cursive;">
+        This is your administrator area - you can
+        <b style="font-family: 'Lobster', cursive;">read</b>,
+        <b style="font-family: 'Lobster', cursive;">create</b>,
+        <b style="font-family: 'Lobster', cursive;">delete</b> and
+        <b style="font-family: 'Lobster', cursive;">edit</b> equipments.
+        <br />You can <b style="font-family: 'Lobster', cursive;">rent</b> and
+        <b style="font-family: 'Lobster', cursive;">leave</b> the free ones, too!
+    </p>
+    <p class="lead mt-1" style="font-family: 'Lobster', cursive;">
+        You can also see <b style="font-family: 'Lobster', cursive;">all users and agents</b> and
+        <b style="font-family: 'Lobster', cursive;">all rents</b> in the system.
+    </p>
+    <hr class="my-4 mt-0 mt-5">
+    <a asp-area="" asp-controller="Equipment" asp-action="All" class="btn btn-light btn-light" style="font-family: 'Lobster', cursive;">All Equipments</a>
+   
+    <span style="font-family: 'Lobster', cursive;"> | </span>
+    <a asp-area="AdminArea" asp-controller="Equipment" asp-action="Mine" class="btn btn-li btn-light" style="font-family: 'Lobster', cursive;">My Equipments</a>
+    <span style="font-family: 'Lobster', cursive;"> | </span>
+    <a asp-area="AdminArea" asp-controller="User" asp-action="All" class="btn btn-primary btn-light" style="font-family: 'Lobster', cursive;">All Users</a>
+</div>

@@ -1,0 +1,23 @@
+﻿@using ProGearRentals.Core.Models.Equipment
+@model IEnumerable<EquipmentServiceModel>
+
+@{
+
+	ViewData["Title"] = "My Equipments";
+}
+<h2 class="text-center" style="font-family: 'Lobster', cursive;">@ViewData["Title"]</h2>
+
+
+@if (Model.Any() == false)
+{
+	<h3 class="text-center" style="font-family: 'Lobster', cursive;">You have no equipments yet</h3>
+}
+
+<div class="row">
+
+	@foreach (var item in Model)
+	{
+		<partial name="_EquipmentPartial" model="@item" />
+	}
+
+</div>

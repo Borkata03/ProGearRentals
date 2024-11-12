@@ -1,0 +1,29 @@
+﻿@model EquipmentServiceModel
+@inject IAgentService agentService
+@inject IEquipmentService equipmentService
+
+
+<div class="col-md-4 mb-1">
+    <div class="card mb-3" style="background-color: #555; border-radius: 10px;">
+        <img class="card-img-top" src="@Model.ImageUrl" alt="Equipment Image" style="border-radius: 10px 10px 0 0;">
+        <div class="card-body text-center w-25">
+            <h4 style="font-family: 'Lobster', cursive; color: white;">@Model.Title</h4>
+            <br />
+
+            <form class="d-inline me-2" asp-area="AdminArea" asp-controller="Equipment" asp-action="Approve" asp-route-equipmentid="@Model.Id" method="Post">
+                <input class="btn btn-light mb-2" style="font-family: 'Lobster', cursive; background-color: white; " type="submit" value="Approve" />
+            </form>
+         
+        </div>
+    </div>
+</div>
+<style>
+    .btn-light {
+        transition: all 0.3s ease;
+    }
+
+        .btn-light:hover {
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.6);
+        }
+</style>
+

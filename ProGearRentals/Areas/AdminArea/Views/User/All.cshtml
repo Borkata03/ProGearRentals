@@ -1,0 +1,49 @@
+﻿@model IEnumerable<UserServiceModel>
+@{
+    ViewBag.Title = "All Users";
+}
+
+<h2 class="text-center" style="font-family: 'Lobster', cursive;">@ViewBag.Title</h2>
+<hr />
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="font-family: 'Lobster', cursive;"><label>Email</label></th>
+            <th style="font-family: 'Lobster', cursive;"><label>Full Name</label></th>
+            <th style="font-family: 'Lobster', cursive;"><label>Phone Number</label></th>
+            <th style="font-family: 'Lobster', cursive;"><label>User Is Agent</label></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td style="font-family: 'Lobster', cursive;">
+                    <label>@user.Email</label>
+                </td>
+                <td style="font-family: 'Lobster', cursive;">
+                    <label>@user.FullName</label>
+                </td>
+                <td style="font-family: 'Lobster', cursive;">
+                    <label>@user.PhoneNumber</label>
+                </td>
+                <td style="font-family: 'Lobster', cursive;">
+                    @if (user.IsAgent)
+                    {
+                        <label>✔</label>
+                    }
+                    else
+                    {
+                        <label class="text-center">❌</label>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    table {
+        font-family: 'Lobster', cursive;
+    }
+</style>

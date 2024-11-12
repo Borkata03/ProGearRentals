@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using ProGearRentals.Infrastructure.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static ProGearRentals.Infrastructure.Constants.CustomClaims;
 
 namespace ProGearRentals.Infrastructure.Data.SeedDb

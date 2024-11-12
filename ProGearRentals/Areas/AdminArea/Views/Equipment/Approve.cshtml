@@ -1,0 +1,22 @@
+﻿
+@model IEnumerable<EquipmentServiceModel>
+
+@{
+
+	ViewData["Title"] = "Equipments to approve";
+}
+<h2 class="text-center" style="font-family: 'Lobster', cursive;">@ViewData["Title"]</h2>
+
+@if (!Model.Any())
+{
+	<h3 class="text-center" style="font-family: 'Lobster', cursive;">You have no equipments to approve!</h3>
+}
+
+<div class="row">
+
+	@foreach (var item in Model)
+	{
+		@await Html.PartialAsync("~/Areas/AdminArea/Views/Shared/_ApproveEquipmentPartial.cshtml", item);
+	}
+
+</div>

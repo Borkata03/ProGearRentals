@@ -19,7 +19,9 @@ namespace ProGearRentals.Infrastructure.Data.Models
         [Required]
         [MaxLength(UserLastNameMaxLength)]
         [PersonalData]
-        public string LastName { get; set; } = string.Empty;    
+        public string LastName { get; set; } = string.Empty;
+
+        public Agent Agent { get; set; } = null!;
 
 
 

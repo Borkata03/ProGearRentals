@@ -4,7 +4,7 @@ using static ProGearRentals.Core.Constants.AdministratorConstants;
 
 namespace ProGearRentals.Areas.AdminArea.Controllers
 {
-    [Area(AreaName)]
+    [Area(AdminAreaName)]
     [Authorize(Roles = AdminRole)]
     public class AdminBaseController : Controller
     {

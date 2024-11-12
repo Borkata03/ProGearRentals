@@ -25,7 +25,7 @@ namespace ProGearRentals.Core.Services.Equipments
             int currentpage = 1,
             int equipmentPerPage = 1)
         {
-            var equipmentsToShow = repository.AllReadOnly<Equipment>();
+            var equipmentsToShow = repository.AllReadOnly<Equipment>().Where(e => e.IsApproved == true);
 
             if (category != null)
             {
@@ -135,7 +135,7 @@ namespace ProGearRentals.Core.Services.Equipments
                 .AnyAsync(h => h.Id == id);
         }
 
-
+        
         public async Task<EquipmentDetailsServiceModel> EqipmentDetailsByIdAsync(int id)
         {
             return await repository.AllReadOnly<Equipment>().
@@ -295,6 +295,35 @@ namespace ProGearRentals.Core.Services.Equipments
                 await repository.SaveChangesAsync();
             }
         }
+
+        public async Task ApproveEquipmentAsync(int equipmentId)
+        {
+            var equipment = await repository.GetByIdAsync<Equipment>(equipmentId);
+
+            if (equipment != null && equipment.IsApproved == false)
+            {
+                equipment.IsApproved = true;
+
+                await repository.SaveChangesAsync();
+            }
+
+           
+        }
+
+        public async Task<IEnumerable<EquipmentServiceModel>> GetUnApprovedAsync()
+        {
+            return await repository.AllReadOnly<Equipment>().Where(e => e.IsApproved == false)
+                .Select(e => new EquipmentServiceModel 
+                {
+                    Description = e.Description,
+                    Id = e.Id,  
+                    ImageUrl = e.ImageUrl,
+                    PricePerMonth = e.PricePerMonth,
+                    Title = e.Title,   
+                })
+                .ToListAsync();    
+        }
     }
     
 }
+ 
